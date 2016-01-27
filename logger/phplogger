@@ -1,0 +1,6 @@
+2016-01-15T14:19:41+01:00
+#0 C:\xampp\htdocs\DieFirmaAustausch\index.php(7): Autoloader::load('Mitarbeiter2Con...')
+#1 [internal function]: {closure}('Mitarbeiter2Con...')
+#2 C:\xampp\htdocs\DieFirmaAustausch\controller\BaseController.php(17): spl_autoload_call('Mitarbeiter2Con...')
+#3 C:\xampp\htdocs\DieFirmaAustausch\index.php(18): BaseController::load('showList', 'error', 'Mitarbeiter2')
+#4 {main}
