@@ -2,9 +2,7 @@
 
 include './view/header.php';
 ?>
-
 <script type="text/javascript" src="./js/clickListener.js"></script>
-
 <div id='menuleft'>
     <div id='cssmenu'>
         <ul>
@@ -46,11 +44,8 @@ include './view/header.php';
 </div>
 
 <div id="content">
-
 </div>
-
 <!--<button type="button" id="btnEingabe" name="btnEingabe" value="Eingabe">Eingabe</button>-->
-
 <?php
 
 include './view/footer.php';
