@@ -20,6 +20,10 @@ class AutoController {
                 $out = self::transformUpdate($out);
                 break;
 
+            case 'showInsert':
+                $out = self::transformUpdate();
+                break;
+
             default:
                 break;
         }
@@ -40,36 +44,56 @@ class AutoController {
         return $returnOut;
     }
 
-    private static function transformUpdate($out) {
+    private static function transformUpdate($out = NULL) {
         $returnOut = [];
         $linkeSpalte = [];
-        $rechteSpalte = [];
-        $options = [];
-
         for ($i = 0; $i < count(Auto::getNames()); $i++) {
             array_push($linkeSpalte, Auto::getNames()[$i]);
         }
-        array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
+        if ($out !== NULL) {
+            array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
+        } else {
+            array_push($linkeSpalte, '');
+        }
 
-        $dbWerte = json_decode(json_encode($out), true);
+        if ($out !== NULL) {
+            $dbWerte = json_decode(json_encode($out), true);
+        }
+        $rechteSpalte = [];
         // überführe $dbWerte in rechte Spalte
-        // dropdownMenü $options erstellen
+        // hersteller $options ertellen
+        $options = [];
         $herst = Hersteller::getAll();
-        // @todo wenn Hersteller gelöscht wurde funktioniert Vergleich nicht mehr
+
+
         foreach ($herst as $hersteller) {
             $option = [];
             $option['value'] = $hersteller->getId();
-            if ($out->getHersteller()->getId() == count($options) + 1) {
-                $option['selected'] = TRUE;
-            }
+            // @todo wenn Hersteller gelöscht wurde funkioniert Vergleich nicht
+
             $option['label'] = $hersteller->getName();
-            array_push($options, $option);
+            $options[$hersteller->getId()] = $option;
+            if ($out !== NULL) {
+                if ($out->getHersteller()->getId() == $hersteller->getId()) {
+                    $options[$hersteller->getId()]['selected'] = TRUE;
+                }
+            }
         }
-        array_push($rechteSpalte, HTML::buildDropDown('hersteller', '1', $options));
-        array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
-        array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['kennzeichen']));
-        array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        if ($out !== NULL) {
+            array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options));
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['kennzeichen']));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        } else {
+            array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options));
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', ''));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', ''));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        }
+
+
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
+
         return $returnOut;
     }
 

@@ -14,7 +14,7 @@ class ProjektMitarbeiter implements Aenderbar, Zeitmessbar, JsonSerializable {
     private $bis;
 
     public static function getNames() {
-        return ['Projekt', 'Vorname', 'Nachname', 'Von', 'Bis'];
+        return ['Projekt', 'Mitarbeiter', 'Von Tag', 'Von Uhrzeit', 'Bis Tag', 'Bis Uhrzeit'];
     }
 
     public function __construct(Projekt $projekt, Mitarbeiter $mitarbeiter, $von, $bis, $id = NULL) {

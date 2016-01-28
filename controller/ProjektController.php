@@ -50,7 +50,7 @@ class ProjektController {
 
         $dbWerte = json_decode(json_encode($out), true);
         // überführe $dbWerte in rechte Spalte
-        
+
         array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
         array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
