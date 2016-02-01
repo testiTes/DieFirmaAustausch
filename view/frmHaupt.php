@@ -21,31 +21,32 @@ include './view/header.php';
             </li>
             <li class='has-sub'><a href='#' id="menuFuhrpark"><span>Fuhrpark</span></a>
                 <ul>
-                    <li><a class="menuItem" href='#' id="menuFuhrparkAnzeigen"><span>Anzeigen</span></a></li>
-                    <li><a class="menuItem" href='#' id="menuFuhrparkAusleihe"><span>Ausleihen</span></a></li>
-                    <li class='last'><a class="menuItem" href='#' id="menuFuhrparkNeuAnlegen"><span>neu Anlegen</span></a></li>
+                    <li><a class="menuItem" href='#' id="menuHerstellerAnzeigen"><span>Hersteller Anzeigen</span></a></li>
+                    <li><a class="menuItem" href='#' id="menuAutosAnzeigen"><span>Autos Anzeigen</span></a></li>
+                    <li><a class="menuItem" href='#' id="menuAusleihe"><span>Ausleihen</span></a></li>
+                    <li class='last'><a class="menuItem" href='#' id="menuHerstellerNeuAnlegen"><span>Hersteller neu Anlegen</span></a></li>
+                    <li class='last'><a class="menuItem" href='#' id="menuAutoNeuAnlegen"><span>Auto neu Anlegen</span></a></li>
+                    <li class='last'><a class="menuItem" href='#' id="menuAusleiheNeuAnlegen"><span>Ausleihe neu Anlegen</span></a></li>
                 </ul>
             </li>
             <li class='has-sub'><a href='#' id="menuProjekte"><span>Projekte</span></a>
                 <ul>
                     <li><a class="menuItem" href='#' id="menuProjekteAnzeigen"><span>Anzeigen</span></a></li>
-                    <li class='last'><a class="menuItem" href='#' id="menuProjekteNeuAnlegen"><span>neu Anlegen</span></a></li>
+                    <li class='last'><a class="menuItem" href='#' id="menuProjektNeuAnlegen"><span>neu Anlegen</span></a></li>
                 </ul>
             </li>
-            <li class='has-sub'><a href='#' id="menuMitarbeiterToProjekt"><span>Mitarbeiter zu Projekt</span></a>
+            <li class='has-sub'><a href='#' id="menuMitarbeiterToProjekt"><span>Projekt Mitarbeiter</span></a>
                 <ul>
-                    <li><a class="menuItem" href='#' id="menuMitarbeiterToProjektAnzeigen"><span>Anzeigen</span></a></li>
-                    <li class='last'><a class="menuItem" href='#' id="menuMitarbeiterToProjektNeuAnlegen"><span>neu Anlegen</span></a></li>
+                    <li><a class="menuItem" href='#' id="menuProjektMitarbeiterAnzeigen"><span>Anzeigen</span></a></li>
+                    <li class='last'><a class="menuItem" href='#' id="menuProjektMitarbeiterNeuAnlegen"><span>neu Anlegen</span></a></li>
                 </ul>
             </li>
             <li class='last'><a href='#' id="menuKontakt"><span>Kontakt</span></a></li>
         </ul>
     </div>
 </div>
-
 <div id="content">
 </div>
-<!--<button type="button" id="btnEingabe" name="btnEingabe" value="Eingabe">Eingabe</button>-->
 <?php
 
 include './view/footer.php';

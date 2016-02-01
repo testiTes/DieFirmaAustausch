@@ -37,8 +37,8 @@ class AutoController {
             $returnOut[$i]['herstellerName'] = $auto->getHersteller()->getName();
             $returnOut[$i]['autoName'] = $auto->getName();
             $returnOut[$i]['autoKennzeichen'] = $auto->getKennzeichen();
-            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $auto->getId());
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $auto->getId());
+            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $auto->getId(), 'bearbeitenAuto', 'bearbeiten');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $auto->getId(), NULL, 'loeschen');
             $i++;
         }
         return $returnOut;
@@ -90,10 +90,7 @@ class AutoController {
             array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', ''));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
         }
-
-
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
-
         return $returnOut;
     }
 

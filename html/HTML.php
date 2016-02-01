@@ -15,7 +15,7 @@ class HTML {
         if (count($tableHead) !== count($tableBody[0])) {
             throw new Exception('Spaltenanzahl von Tablehead stimmt nicht mit Spaltenanzahl Tablebody überein');
         }
-        $html = '<table cellspacing="2" cellpadding="2">' . '<thead>' . '<tr>';
+        $html = '<table cellspacing="2" cellpadding="2" border="1">' . '<thead>' . '<tr>';
         foreach ($tableHead as $columnName) {
             $html .= '<th>' . $columnName . '</th>';
         }
@@ -35,7 +35,7 @@ class HTML {
         if (count($linkeSpalte) !== count($rechteSpalte)) {
             throw new Exception('Arrays in HTML::buildFormularTable sind nicht gleich groß');
         }
-        $html = '<table cellspacing="2" cellpadding="2"><tbody>' . "\n";
+        $html = '<table cellspacing="2" cellpadding="2" border="1"><tbody>' . "\n";
         for ($i = 0; $i < count($linkeSpalte); $i++) {
             $html .= '<tr>' . "\n";
             $html .= '<td>' . $linkeSpalte[$i] . '</td>' . "\n";

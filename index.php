@@ -1,5 +1,5 @@
 <?php
-
+define('DEV','TRUE');
 include './config.php';
 include './model/Autoloader.php';
 
@@ -27,11 +27,11 @@ include 'view' . DIRECTORY_SEPARATOR . $view . '.php';
 
 $ajax = isset($_POST['ajax']) ? $_POST['ajax'] : 'false';
 //$btnViewLoader = isset($_POST['btnViewLoader']) ? $_POST['btnViewLoader'] : '';
-$menuViewLoader = isset($_POST['menuViewLoader']) ? $_POST['menuViewLoader'] : '';
+//$menuViewLoader = isset($_POST['menuViewLoader']) ? $_POST['menuViewLoader'] : '';
 
-//if ($ajax == 'false') {
-//    include './view/frmHaupt.php';
-//}
+if ($ajax == 'false') {
+    include './view/frmHaupt.php';
+}
 //
 //if ($menuViewLoader == 'menuHome') {
 //    include './view/frmHaupt.php';

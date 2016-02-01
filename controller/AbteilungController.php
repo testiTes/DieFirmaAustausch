@@ -20,9 +20,8 @@ class AbteilungController {
                 $out = self::transformUpdate($out);
                 break;
 
-            case 'showInput':
-                $out = new Abteilung('',''); // um leerfelder in eingabemaske zu erzeugen
-                $out = self::transformUpdate($out);
+            case 'showInsert':
+                $out = self::transformUpdate();
                 break;
 
             default:
@@ -36,31 +35,40 @@ class AbteilungController {
         $i = 0;
         foreach ($out as $abteilung) {
             $returnOut[$i]['abteilungName'] = $abteilung->getName();
-            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $abteilung->getId());
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $abteilung->getId());
+            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $abteilung->getId(), 'bearbeitenAbteilung', 'bearbeiten');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $abteilung->getId(), NULL, 'loeschen');
             $i++;
         }
         return $returnOut;
     }
 
-    private static function transformUpdate($out) {
+    private static function transformUpdate($out = NULL) {
         $returnOut = [];
         $linkeSpalte = [];
         $rechteSpalte = [];
-        $options = [];
 
         for ($i = 0; $i < count(Abteilung::getNames()); $i++) {
             array_push($linkeSpalte, Abteilung::getNames()[$i]);
         }
-        array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
-
-        $dbWerte = json_decode(json_encode($out), true);
+        if ($out !== NULL) {
+            array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
+        } else {
+            array_push($linkeSpalte, '');
+        }
+        if ($out !== NULL) {
+            $dbWerte = json_decode(json_encode($out), true);
+        }
+        
         // überführe $dbWerte in rechte Spalte
-
-        array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
-        array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        if ($out !== NULL) {
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        } else {
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', ''));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
-        return $returnOut;                    
+        return $returnOut;
     }
 
 }

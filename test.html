@@ -4,10 +4,12 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/clickListener.js"></script>
     </head>
     <body>
         <div>
-            <form action="index.php" method="POST">
+            <!--<form action="index.php" method="POST">-->
                 <table border="0" cellspacing="5" cellpadding="5">
                     <tbody>
                         <tr>
@@ -37,12 +39,15 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input type="submit" value="OK" />
+                                <!--<input type="submit" value="OK" />-->
+                                <button type="button" id="ha" value="hallo">OK</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </form>   
+            <!--</form>-->   
+        </div>
+        <div id="content">
         </div>
     </body>
 </html>

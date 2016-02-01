@@ -62,6 +62,10 @@ class Projekt implements Aenderbar, JsonSerializable {
     }
 
     public static function insert($id) {
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO bbqfirma.projekt VALUES name=:name";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $id]);
         
     }
 

@@ -20,6 +20,10 @@ class AusleiheController {
                 $out = self::transformUpdate($out);
                 break;
 
+            case 'showInsert':
+                $out = self::transformUpdate();
+                break;
+
             default:
                 break;
         }
@@ -37,14 +41,14 @@ class AusleiheController {
             $returnOut[$i]['vorname'] = $ausleihe->getMitarbeiter()->getNachname();
             $returnOut[$i]['von'] = HTML::dateTimeToDateAndTime($ausleihe->getVon());
             $returnOut[$i]['bis'] = HTML::dateTimeToDateAndTime($ausleihe->getBis());
-            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $ausleihe->getId());
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $ausleihe->getId());
+            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $ausleihe->getId(), 'bearbeitenAusleihe', 'bearbeiten');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $ausleihe->getId(), NULL, 'loeschen');
             $i++;
         }
         return $returnOut;
     }
 
-    private static function transformUpdate($out) {
+    private static function transformUpdate($out = NULL) {
         $returnOut = [];
         $linkeSpalte = [];
         $rechteSpalte = [];
@@ -54,43 +58,70 @@ class AusleiheController {
         for ($i = 0; $i < count(Ausleihe::getNames()); $i++) {
             array_push($linkeSpalte, Ausleihe::getNames()[$i]);
         }
-        array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
+        if ($out !== NULL) {
+            array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
+        } else {
+            array_push($linkeSpalte, '');
+        }
+        if ($out !== NULL) {
+            $dbWerte = json_decode(json_encode($out), true);
+        }
 
-        $dbWerte = json_decode(json_encode($out), true);
         // überführe $dbWerte in rechte Spalte
         // dropdownMenü $options erstellen
         $herst = Hersteller::getAll();
-        // @todo wenn Hersteller gelöscht wurde funktioniert Vergleich nicht mehr
-        foreach ($herst as $hersteller) {
-            $option = [];
-            $option['value'] = $hersteller->getId();
-            if ($out->getAuto()->getHersteller()->getId() == count($options) + 1) {
-                $option['selected'] = TRUE;
+        $options = [];
+        $options[0] = ['value' => 0, 'label' => ''];
+        $hatirgendwas = FALSE;
+        foreach ($herst as $o) {
+            $options[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getName()];
+            if ($out !== NULL) {
+                if ($o->getId() === $out->getId()) {
+                    $options[$o->getId()]['selected'] = TRUE;
+                    $hatirgendwas = TRUE;
+                }
             }
-            $option['label'] = $hersteller->getName();
-            array_push($options, $option);
+        }
+        if ($hatirgendwas == FALSE) {
+            $options[0]['selected'] = TRUE;
         }
 
         // auto $options erstellen
         $auto = Auto::getAll();
-        foreach ($auto as $modell) {
-            $option = [];
-            $option['value'] = $modell->getId();
-            if ($out->getAuto()->getId() == count($autoOptions) + 1) {
-                $option['selected'] = TRUE;
+        $options2 = [];
+        $options2[0] = ['value' => 0, 'label' => ''];
+        $hatirgendwas2 = FALSE;
+        foreach ($auto as $o) {
+            $options2[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getName()];
+            if ($out !== NULL) {
+                if ($o->getId() == $out->getAuto()->getId()) {
+                    $options2[$o->getId()]['selected'] = TRUE;
+                    $hatirgendwas2 = TRUE;
+                }
             }
-            $option['label'] = $modell->getName();
-            array_push($autoOptions, $option);
         }
-
-        array_push($rechteSpalte, HTML::buildDropDown('hersteller', '1', $options));
-        array_push($rechteSpalte, HTML::buildDropDown('auto', '1', $autoOptions));
-        array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['auto']['kennzeichen']));
-        array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['mitarbeiter']['vorname']));
-        array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['mitarbeiter']['nachname']));
-        array_push($rechteSpalte, HTML::buildInput('text', 'von', $dbWerte['von']));
-        array_push($rechteSpalte, HTML::buildInput('text', 'bis', $dbWerte['bis']));
-        array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        if ($hatirgendwas2 == FALSE) {
+            $options2[0]['selected'] = TRUE;
+        }
+        if ($out !== NULL) {
+            array_push($rechteSpalte, HTML::buildDropDown('hersteller', '1', $options));
+            array_push($rechteSpalte, HTML::buildDropDown('auto', '1', $options2));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['auto']['kennzeichen']));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['mitarbeiter']['vorname']));
+            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['mitarbeiter']['nachname']));
+            array_push($rechteSpalte, HTML::buildInput('text', 'von', HTML::dateTimeToDateAndTime($dbWerte['von'])));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bis', HTML::dateTimeToDateAndTime($dbWerte['bis'])));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        } else {
+            array_push($rechteSpalte, HTML::buildDropDown('hersteller', '1', $options));
+            array_push($rechteSpalte, HTML::buildDropDown('auto', '1', $options2));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', ''));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', ''));
+            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', ''));
+            array_push($rechteSpalte, HTML::buildInput('text', 'von', ''));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bis', ''));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;
     }

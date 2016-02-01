@@ -85,7 +85,12 @@ class ProjektMitarbeiter implements Aenderbar, Zeitmessbar, JsonSerializable {
     }
 
     public static function update($obj) {
-        
+//        $pdo = DbConnect::connect();
+//        $sql = "UPDATE projektmitarbeiter SET projekt_id =:pid, mitarbeiter_id =:mid, von =:von, bis =:bis WHERE id =:id";
+//        $stmt = $pdo->prepare($sql);
+//        $stmt->execute([':pid' => Projekt::update($obj),':mid' => Mitarbeiter::update($obj),':von' => ProjektMitarbeiter::update($obj),':bis' => ProjektMitarbeiter::update($obj),':id' => ProjektMitarbeiter::getById($id)]);
+//        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        return new ProjektMitarbeiter(Projekt::getById($rows[0]['projekt_id']), Mitarbeiter::getById($rows[0]['mitarbeiter_id']), $rows[0]['von'], $rows[0]['bis'], $rows[0]['id']);
     }
 
     public function getDauer() {

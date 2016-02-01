@@ -20,6 +20,10 @@ class ProjektController {
                 $out = self::transformUpdate($out);
                 break;
 
+            case 'showInsert':
+                $out = self::transformUpdate();
+                break;
+
             default:
                 break;
         }
@@ -31,14 +35,14 @@ class ProjektController {
         $i = 0;
         foreach ($out as $projekt) {
             $returnOut[$i]['projektName'] = $projekt->getName();
-            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $projekt->getId());
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $projekt->getId());
+            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $projekt->getId(), 'bearbeitenProjekt', 'bearbeiten');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $projekt->getId(), 'loeschenProjekt', 'loeschen');
             $i++;
         }
         return $returnOut;
     }
 
-    private static function transformUpdate($out) {
+    private static function transformUpdate($out = NULL) {
         $returnOut = [];
         $linkeSpalte = [];
         $rechteSpalte = [];
@@ -46,13 +50,22 @@ class ProjektController {
         for ($i = 0; $i < count(Projekt::getNames()); $i++) {
             array_push($linkeSpalte, Projekt::getNames()[$i]);
         }
-        array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
-
-        $dbWerte = json_decode(json_encode($out), true);
+        if ($out !== NULL) {
+            array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
+        } else {
+            array_push($linkeSpalte, '');
+        }
+        if ($out !== NULL) {
+            $dbWerte = json_decode(json_encode($out), true);
+        }
         // überführe $dbWerte in rechte Spalte
-
-        array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
-        array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        if ($out !== NULL) {
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        } else {
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', ''));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+        }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;
     }

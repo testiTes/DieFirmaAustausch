@@ -10,7 +10,6 @@ class ProjektMitarbeiterController {
     public static function doAction($action, &$view, $id) {
         switch ($action) {
             case 'showList':
-
                 $out = ProjektMitarbeiter::getAll();
                 $out = self::transform($out);
                 break;
@@ -39,8 +38,8 @@ class ProjektMitarbeiterController {
             $returnOut[$i]['mitarbeiterNachname'] = $projektmitarbeiter->getMitarbeiter()->getNachname();
             $returnOut[$i]['projektVon'] = HTML::extractDateFromDateTime($projektmitarbeiter->getVon());
             $returnOut[$i]['projektBis'] = HTML::extractDateFromDateTime($projektmitarbeiter->getBis());
-            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $projektmitarbeiter->getId());
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $projektmitarbeiter->getId());
+            $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $projektmitarbeiter->getId(), 'bearbeitenProjektMitarbeiter', 'bearbeiten');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $projektmitarbeiter->getId(), 'loeschen');
             $i++;
         }
         return $returnOut;
@@ -60,11 +59,12 @@ class ProjektMitarbeiterController {
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
-        
+
         // überführe $dbWerte in rechte Spalte
         // options für die vorgesetzten
         $projekte = Projekt::getAll();
         $options = [];
+
         // zum abwählen
         $options[0] = ['value' => 0, 'label' => ''];
         $hatProjekt = FALSE;
@@ -116,7 +116,7 @@ class ProjektMitarbeiterController {
             array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', ''));
             array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', ''));
             array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', ''));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', '', 'OK'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;
