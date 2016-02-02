@@ -54,7 +54,10 @@ class ProjektMitarbeiter implements Aenderbar, Zeitmessbar, JsonSerializable {
     }
 
     public static function delete($id) {
-        
+        $pdo = DbConnect::connect();
+        $sql = "delete from projektmitarbeiter WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
     }
 
     public static function getAll() {
@@ -81,16 +84,17 @@ class ProjektMitarbeiter implements Aenderbar, Zeitmessbar, JsonSerializable {
     }
 
     public static function insert($id) {
-        
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO projektmitarbeiter(projekt_id,von,bis,mitarbeiter_id) VALUES (:projekt_id,:von,:bis,:mitarbeiter_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':projekt_id' => $id->getProjekt()->getId(), ':von' => $id->getVon(), ':bis' => $id->getBis(), ':mitarbeiter_id' => $id->getMitarbeiter()->getId()]);
     }
 
     public static function update($obj) {
-//        $pdo = DbConnect::connect();
-//        $sql = "UPDATE projektmitarbeiter SET projekt_id =:pid, mitarbeiter_id =:mid, von =:von, bis =:bis WHERE id =:id";
-//        $stmt = $pdo->prepare($sql);
-//        $stmt->execute([':pid' => Projekt::update($obj),':mid' => Mitarbeiter::update($obj),':von' => ProjektMitarbeiter::update($obj),':bis' => ProjektMitarbeiter::update($obj),':id' => ProjektMitarbeiter::getById($id)]);
-//        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//        return new ProjektMitarbeiter(Projekt::getById($rows[0]['projekt_id']), Mitarbeiter::getById($rows[0]['mitarbeiter_id']), $rows[0]['von'], $rows[0]['bis'], $rows[0]['id']);
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE projektmitarbeiter SET projekt_id =:projekt_id,  von =:von, bis =:bis, mitarbeiter_id =:mitarbeiter_id WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':projekt_id' => $obj->getProjekt()->getId(), ':von' => $obj->getVon(), ':bis' => $obj->getBis(), ':mitarbeiter_id' => $obj->getMitarbeiter()->getId(), ':id' => $obj->getId()]);
     }
 
     public function getDauer() {
