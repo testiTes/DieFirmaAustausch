@@ -140,6 +140,12 @@ class HTML {
         return $datum[1] . ' ' . $datum[0];
     }
 
+    public static function DateAndTimeTodateTime($date) {
+        $datum = array_reverse(explode(' ', $date));
+        $datum[1] = implode('-', array_reverse(explode('.', $datum[1])));
+        return $datum[1] . ' ' . $datum[0];
+    }
+
     public static function extractDateFromDateTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('.', array_reverse(explode('-', $datum[1])));

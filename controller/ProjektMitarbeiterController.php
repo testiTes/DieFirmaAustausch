@@ -23,6 +23,20 @@ class ProjektMitarbeiterController {
                 $out = self::transformUpdate();
                 break;
 
+            case 'update' :
+                $out = new ProjektMitarbeiter(Projekt::getById($_POST['projekt']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), $_POST['upmid']);
+                $out = ProjektMitarbeiter::update($out);
+                $out = ProjektMitarbeiter::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'insert' :
+                $out = new ProjektMitarbeiter(Projekt::getById($_POST['projekt']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), NULL);
+                $out = ProjektMitarbeiter::insert($out);
+                $out = ProjektMitarbeiter::getAll();
+                $out = self::transform($out);
+                break;
+
             default:
                 break;
         }
@@ -102,21 +116,21 @@ class ProjektMitarbeiterController {
 
         $rechteSpalte = [];
         if ($out !== NULL) {
-            array_push($rechteSpalte, HTML::buildDropDown('projekt', '1', $options));
-            array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2));
+            array_push($rechteSpalte, HTML::buildDropDown('projekt', '1', $options, NULL, 'projekt'));
+            array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2, NULL, 'mitarbeiter'));
             array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', HTML::extractDateFromDateTime($dbWerte['von'])));
             array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', HTML::extractTimeFromDateTime($dbWerte['von'])));
             array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', HTML::extractDateFromDateTime($dbWerte['bis'])));
             array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', HTML::extractTimeFromDateTime($dbWerte['bis'])));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', '', 'OK'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateProjektMitarbeiter', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildDropDown('projekt', '1', $options));
-            array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2));
-            array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', ''));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildDropDown('projekt', '1', $options, NULL, 'projekt'));
+            array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2, NULL, 'mitarbeiter'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', '', NULL, 'vonTag'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', '', NULL, 'vonZeit'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', '', NULL, 'bisTag'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', '', NULL, 'bisZeit'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertProjektMitarbeiter', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;

@@ -24,6 +24,20 @@ class AutoController {
                 $out = self::transformUpdate();
                 break;
 
+            case 'update' :
+                $out = new Auto($_POST['auto'], Hersteller::getById($_POST['hersteller_id']), $_POST['kennzeichen'], $_POST['uauid']);
+                $out = Auto::update($out);
+                $out = Auto::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'insert' :
+                $out = new Auto($_POST['auto'], Hersteller::getById($_POST['hersteller_id']), $_POST['kennzeichen'], NULL);
+                $out = Auto::insert($out);
+                $out = Auto::getAll();
+                $out = self::transform($out);
+                break;
+
             default:
                 break;
         }
@@ -65,12 +79,9 @@ class AutoController {
         $options = [];
         $herst = Hersteller::getAll();
 
-
         foreach ($herst as $hersteller) {
             $option = [];
             $option['value'] = $hersteller->getId();
-            // @todo wenn Hersteller gelöscht wurde funkioniert Vergleich nicht
-
             $option['label'] = $hersteller->getName();
             $options[$hersteller->getId()] = $option;
             if ($out !== NULL) {
@@ -80,15 +91,15 @@ class AutoController {
             }
         }
         if ($out !== NULL) {
-            array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options));
-            array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
-            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['kennzeichen']));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options, NULL, 'hersteller'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'autoName', $dbWerte['name'], NULL, 'autoName'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['kennzeichen'], NULL, 'kennzeichen'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateAuto', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options));
-            array_push($rechteSpalte, HTML::buildInput('text', 'name', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', ''));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options, NULL, 'hersteller'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'autoName', '', NUll, 'autoName'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', '', NULL, 'kennzeichen'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertAuto', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;

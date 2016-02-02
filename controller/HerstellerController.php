@@ -24,6 +24,20 @@ class HerstellerController {
                 $out = self::transformUpdate();
                 break;
 
+            case 'update' :
+                $out = new Hersteller($_POST['uHersteller'], $_POST['uheid']);
+                $out = Hersteller::update($out);
+                $out = Hersteller::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'insert' :
+                $out = new Hersteller($_POST['hersteller'], NULL);
+                $out = Hersteller::insert($out);
+                $out = Hersteller::getAll();
+                $out = self::transform($out);
+                break;
+
             default:
                 break;
         }
@@ -61,11 +75,11 @@ class HerstellerController {
 
         // überführe $dbWerte in rechte Spalte
         if ($out !== NULL) {
-            $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', $dbWerte['name']);
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', $dbWerte['name'], NULL, 'name');
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateHersteller', 'OK'));
         } else {
-            $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', '');
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', '', NULL, 'name');
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertHersteller', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;

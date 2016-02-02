@@ -9,7 +9,7 @@ class Hersteller implements Aenderbar, JsonSerializable {
 
     private $id;
     private $name;
-    
+
     public static function getNames() {
         return ['Hersteller'];
     }
@@ -60,11 +60,17 @@ class Hersteller implements Aenderbar, JsonSerializable {
     }
 
     public static function insert($id) {
-        
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO hersteller(name) VALUES (:name)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $id->getName()]);
     }
 
     public static function update($obj) {
-        
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE hersteller SET name =:name WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $obj->getName(),':id' => $obj->getId()]);
     }
 
 }

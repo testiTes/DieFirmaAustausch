@@ -13,7 +13,7 @@ class Auto implements Aenderbar, JsonSerializable {
     private $kennzeichen;
 
     public static function getNames() {
-        return ['Hersteller','Modell','Kennzeichen'];
+        return ['Hersteller', 'Modell', 'Kennzeichen'];
     }
 
     public function __construct($name, Hersteller $hersteller, $kennzeichen, $id = NULL) {
@@ -74,11 +74,17 @@ class Auto implements Aenderbar, JsonSerializable {
     }
 
     public static function insert($id) {
-        
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO auto(name,hersteller_id,kennzeichen) VALUES (:name,:hersteller_id,:kennzeichen)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $id->getName(), ':hersteller_id' => $id->getHersteller()->getId(), ':kennzeichen' => $id->getKennzeichen()]);
     }
 
     public static function update($obj) {
-        
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE auto SET name =:name, hersteller_id =:hersteller_id,kennzeichen =:kennzeichen WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $obj->getName(), ':hersteller_id' => $obj->getHersteller()->getId(), ':kennzeichen' => $obj->getKennzeichen(), ':id' => $obj->getId()]);
     }
 
 }
