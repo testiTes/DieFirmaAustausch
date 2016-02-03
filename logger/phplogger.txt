@@ -10623,4 +10623,154 @@
 #1 [internal function]: {closure}('StandardControl...')
 #2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
 #3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T07:47:03+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:24:02+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:24:08+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:24:11+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:24:14+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:24:40+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:25:31+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:25:45+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:26:55+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:27:45+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:29:03+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:29:30+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:29:57+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:30:31+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:32:37+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:34:20+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:34:47+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:35:10+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:35:29+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:36:03+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:36:26+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:37:09+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:39:18+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:41:02+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:44:25+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:45:15+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:46:12+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:46:29+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:47:30+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
+#4 {main}2016-02-03T08:48:54+01:00
+#0 C:\xampp\htdocs\DieFirma2\index.php(8): Autoloader::load('StandardControl...')
+#1 [internal function]: {closure}('StandardControl...')
+#2 C:\xampp\htdocs\DieFirma2\controller\BaseController.php(13): spl_autoload_call('StandardControl...')
+#3 C:\xampp\htdocs\DieFirma2\index.php(17): BaseController::load('standard', 'error', 'standard', '0')
 #4 {main}

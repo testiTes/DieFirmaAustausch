@@ -37,6 +37,13 @@ class ProjektMitarbeiterController {
                 $out = self::transform($out);
                 break;
 
+            case 'delete' :
+                $out = $_POST['lpmid'];
+                $out = ProjektMitarbeiter::delete($out);
+                $out = ProjektMitarbeiter::getAll();
+                $out = self::transform($out);
+                break;
+
             default:
                 break;
         }
@@ -53,7 +60,7 @@ class ProjektMitarbeiterController {
             $returnOut[$i]['projektVon'] = HTML::extractDateFromDateTime($projektmitarbeiter->getVon());
             $returnOut[$i]['projektBis'] = HTML::extractDateFromDateTime($projektmitarbeiter->getBis());
             $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $projektmitarbeiter->getId(), 'bearbeitenProjektMitarbeiter', 'bearbeiten');
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $projektmitarbeiter->getId(), 'loeschen');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $projektmitarbeiter->getId(), 'loeschenProjektMitarbeiter', 'loeschen');
             $i++;
         }
         return $returnOut;

@@ -8,13 +8,7 @@ $(document).ready(function () {
             var aTableEdit = getMenuOptions(this.className);
         }
 
-        else if (this.className == 'loeschen') {
-            alert(this.className);
-            alert(this.value);
-            alert(this.id);
-        }
-
-        else if (this.className == "updateHersteller") {
+        if (this.className == "updateHersteller") {
             var id = inputs['id'].value;
             var hersteller = inputs['name'].value;
 
@@ -32,7 +26,7 @@ $(document).ready(function () {
             });
         }
 
-        else if (this.className == "updateAuto") {
+        if (this.className == "updateAuto") {
             var id = inputs['id'].value;
             var hersteller_id = drops['hersteller'].value;
             var auto = inputs['autoName'].value;
@@ -54,7 +48,7 @@ $(document).ready(function () {
             });
         }
 
-        else if (this.className == "insertHersteller") {
+        if (this.className == "insertHersteller") {
             var hersteller = inputs['name'].value;
 
             $.post("index.php",
@@ -70,7 +64,7 @@ $(document).ready(function () {
             });
         }
 
-        else if (this.className == "insertAuto") {
+        if (this.className == "insertAuto") {
             var hersteller_id = drops['hersteller'].value;
             var auto = inputs['autoName'].value;
             var kennzeichen = inputs['kennzeichen'].value;
@@ -90,7 +84,7 @@ $(document).ready(function () {
             });
         }
 
-        else if (this.className == "updateProjektMitarbeiter") {
+        if (this.className == "updateProjektMitarbeiter") {
             var id = inputs['id'].value;
             var projekt = drops['projekt'].value;
             var mitarbeiter = drops['mitarbeiter'].value;
@@ -114,7 +108,25 @@ $(document).ready(function () {
             });
         }
 
-        else if (this.className == "insertProjektMitarbeiter") {
+        if (this.className == 'loeschenProjektMitarbeiter' && this.value == 'loeschen') {
+            alert(this.className);
+            alert(this.id);
+            alert(this.value);
+            var lpmid = this.id;
+            $.post("index.php",
+                    {
+                        ajax: "true",
+                        action: "delete",
+                        area: "ProjektMitarbeiter",
+                        view: "listeProjektMitarbeiter",
+                        lpmid: lpmid
+                    },
+            function (data, status) {
+                $('#content').html(data);
+            });
+        }
+
+        if (this.className == "insertProjektMitarbeiter") {
             var projekt = drops['projekt'].value;
             var mitarbeiter = drops['mitarbeiter'].value;
             var vonDate = inputs['vonTag'].value + ' ' + inputs['vonZeit'].value;
@@ -136,7 +148,7 @@ $(document).ready(function () {
             });
         }
 
-        else if (this.id == "ha") {
+        if (this.id == "ha") {
             var action = inputs['action'].value;
             var area = inputs['area'].value;
             var view = inputs['view'].value;
@@ -152,10 +164,6 @@ $(document).ready(function () {
             function (data, status) {
                 $('#content').html(data);
             });
-        }
-
-        else {
-            alert('huhu');
         }
 
         $.post("index.php",
@@ -213,7 +221,8 @@ $(document).ready(function () {
             case 'menuProjektMitarbeiterAnzeigen' :
                 options = ['showList', 'ProjektMitarbeiter', 'listeProjektMitarbeiter'];
                 break;
-                //Insert
+
+            //Insert
 
             case 'menuMitarbeiterNeuAnlegen' :
                 options = ['showInsert', 'Mitarbeiter', 'formularMitarbeiter'];
@@ -236,7 +245,8 @@ $(document).ready(function () {
             case 'menuProjektMitarbeiterNeuAnlegen' :
                 options = ['showInsert', 'ProjektMitarbeiter', 'formularProjektMitarbeiter'];
                 break;
-                //Update
+                
+            //Update
 
             case 'bearbeitenMitarbeiter' :
                 options = ['showUpdate', 'Mitarbeiter', 'formularMitarbeiter'];
@@ -258,8 +268,9 @@ $(document).ready(function () {
                 break;
             case 'bearbeitenProjektMitarbeiter' :
                 options = ['showUpdate', 'ProjektMitarbeiter', 'formularProjektMitarbeiter'];
-                break;
-                //Default also Standard
+                break;                
+                
+            //Default also Standard
 
             default:
                 options = ['standard', 'standard', 'standard'];
