@@ -9,6 +9,7 @@ class ProjektMitarbeiterController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
+            
             case 'showList':
                 $out = ProjektMitarbeiter::getAll();
                 $out = self::transform($out);
@@ -24,7 +25,7 @@ class ProjektMitarbeiterController {
                 break;
 
             case 'update' :
-                $out = new ProjektMitarbeiter(Projekt::getById($_POST['projekt']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), $_POST['upmid']);
+                $out = new ProjektMitarbeiter(Projekt::getById($_POST['Projekt']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), $_POST['upmid']);
                 $out = ProjektMitarbeiter::update($out);
                 $out = ProjektMitarbeiter::getAll();
                 $out = self::transform($out);

@@ -9,8 +9,8 @@ class AutoController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
+            
             case 'showList':
-
                 $out = Auto::getAll();
                 $out = self::transform($out);
                 break;
@@ -25,7 +25,7 @@ class AutoController {
                 break;
 
             case 'update' :
-                $out = new Auto($_POST['auto'], Hersteller::getById($_POST['hersteller_id']), $_POST['kennzeichen'], $_POST['uauid']);
+                $out = new Auto($_POST['Auto'], Hersteller::getById($_POST['hersteller_id']), $_POST['kennzeichen'], $_POST['uauid']);
                 $out = Auto::update($out);
                 $out = Auto::getAll();
                 $out = self::transform($out);
@@ -38,6 +38,13 @@ class AutoController {
                 $out = self::transform($out);
                 break;
 
+            case 'delete' :
+                $out = $_POST['lauid'];
+                $out = Auto::delete($out);
+                $out = Auto::getAll();
+                $out = self::transform($out);
+                break;
+            
             default:
                 break;
         }
@@ -52,7 +59,7 @@ class AutoController {
             $returnOut[$i]['autoName'] = $auto->getName();
             $returnOut[$i]['autoKennzeichen'] = $auto->getKennzeichen();
             $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $auto->getId(), 'bearbeitenAuto', 'bearbeiten');
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $auto->getId(), NULL, 'loeschen');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $auto->getId(), 'loeschenAuto', 'loeschen');
             $i++;
         }
         return $returnOut;

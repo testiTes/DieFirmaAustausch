@@ -9,8 +9,8 @@ class MitarbeiterController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            case 'showList':
 
+            case 'showList':
                 $out = Mitarbeiter::getAll();
                 $out = self::transform($out);
                 break;
@@ -22,6 +22,29 @@ class MitarbeiterController {
 
             case 'showInsert':
                 $out = self::transformUpdate();
+                break;
+
+            case 'update':
+                $vorgesetzter = ($_POST['vorgesetzter_id']) ? Mitarbeiter::getById($_POST['vorgesetzter_id']) : NULL;
+                $out = new Mitarbeiter($_POST['vorname'], $_POST['nachname'], $_POST['geschlecht'], HTML::germanToMysql($_POST['geburtsdatum']), Abteilung::getById($_POST['abteilung_id']), $_POST['stundenlohn'], $vorgesetzter, $_POST['umaid']);
+                $out = Mitarbeiter::update($out);
+                $out = Mitarbeiter::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'insert':
+                $vorgesetzter = ($_POST['vorgesetzter_id']) ? Mitarbeiter::getById($_POST['vorgesetzter_id']) : NULL;
+                $out = new Mitarbeiter($_POST['vorname'], $_POST['nachname'], $_POST['geschlecht'], HTML::germanToMysql($_POST['geburtsdatum']), Abteilung::getById($_POST['abteilung_id']), $_POST['stundenlohn'], $vorgesetzter, NULL);
+                $out = Mitarbeiter::insert($out);
+                $out = Mitarbeiter::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'delete':
+                $out = $_POST['lmaid'];
+                $out = Mitarbeiter::delete($out);
+                $out = Mitarbeiter::getAll();
+                $out = self::transform($out);
                 break;
 
             default:
@@ -37,7 +60,7 @@ class MitarbeiterController {
             $returnOut[$i]['vorname'] = $mitarbeiter->getVorname();
             $returnOut[$i]['nachname'] = $mitarbeiter->getNachname();
             $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $mitarbeiter->getId(), 'bearbeitenMitarbeiter', 'bearbeiten');
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $mitarbeiter->getId(), NULL, 'loeschen');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $mitarbeiter->getId(), 'loeschenMitarbeiter', 'loeschen');
             $i++;
         }
         return $returnOut;
@@ -136,23 +159,23 @@ class MitarbeiterController {
 
         $rechteSpalte = [];
         if ($out !== NULL) {
-            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['vorname']));
-            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['nachname']));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['vorname'], NULL, 'vorname'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['nachname'], NULL, 'nachname'));
             array_push($rechteSpalte, HTML::buildRadio('geschlecht', $radioOptions, FALSE));
-            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', HTML::mysqlToGerman($dbWerte['geburtsdatum'])));
-            array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options));
-            array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', $dbWerte['stundenlohn']));
-            array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', '', 'OK'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', HTML::mysqlToGerman($dbWerte['geburtsdatum']), NULL, 'geburtsdatum'));
+            array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options, NULL, 'abteilung'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', $dbWerte['stundenlohn'], NULL, 'stundenlohn'));
+            array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2, NULL, 'vorgesetzter'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateMitarbeiter', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', ''));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', '', NULL, 'vorname'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', '', NULL, 'nachname'));
             array_push($rechteSpalte, HTML::buildRadio('geschlecht', $radioOptions, FALSE));
-            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', ''));
-            array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options));
-            array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', ''));
-            array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', '', 'OK'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', '', NULL, 'geburtsdatum'));
+            array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options, NULL, 'abteilung'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', '', NULL, 'stundenlohn'));
+            array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2, NULL, 'vorgesetzter'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertMitarbeiter', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;

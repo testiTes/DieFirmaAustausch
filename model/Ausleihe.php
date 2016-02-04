@@ -9,7 +9,7 @@ class Ausleihe implements Aenderbar, Zeitmessbar, JsonSerializable {
     private $bis;
 
     public static function getNames() {
-        return ['Hersteller', 'Modell', 'Kennzeichen', 'Vorname', 'Nachname', 'Von', 'Bis'];
+        return ['Fahrzeug', 'Mitarbeiter', 'Von Tag', 'Von Uhrzeit', 'Bis Tag', 'Bis Uhrzeit'];
     }
 
     function __construct(Auto $auto, Mitarbeiter $mitarbeiter, $von, $bis, $id = NULL) {
@@ -26,45 +26,6 @@ class Ausleihe implements Aenderbar, Zeitmessbar, JsonSerializable {
             'mitarbeiter' => $this->mitarbeiter,
             'von' => $this->von,
             'bis' => $this->bis];
-    }
-
-    public static function delete($id) {
-
-    }
-
-    public static function getById($id) {
-        $pdo = DbConnect::connect();
-        $sql = "SELECT * from ausleihe WHERE id=:id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':id' => $id]);
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return new Ausleihe(Auto::getById($rows[0]['auto_id']), Mitarbeiter::getById($rows[0]['mitarbeiter_id']), $rows[0]['von'], $rows[0]['bis'], $rows[0]['id']);
-    }
-
-    public static function insert($object) {
-
-    }
-
-    public static function update($object) {
-
-    }
-
-    public static function getAll() {
-        $pdo = DbConnect::connect();
-        $sql = "SELECT * from ausleihe";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $ausleihe = [];
-
-        foreach ($rows as $row) {
-            $ausleihe[$row['id']] = new Ausleihe(Auto::getById($row['auto_id']), Mitarbeiter::getById($row['mitarbeiter_id']), $row['von'], $row['bis'], $row['id']);
-        }
-        return $ausleihe;
-    }
-
-    public function getDauer() {
-        
     }
 
     function getId() {
@@ -87,24 +48,52 @@ class Ausleihe implements Aenderbar, Zeitmessbar, JsonSerializable {
         return $this->bis;
     }
 
-    function setId($id) {
-        $this->id = $id;
+    public function getDauer() {
+        
     }
 
-    function setAuto($auto) {
-        $this->auto = $auto;
+    public static function getAll() {
+        $pdo = DbConnect::connect();
+        $sql = "SELECT * from ausleihe";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $ausleihe = [];
+
+        foreach ($rows as $row) {
+            $ausleihe[$row['id']] = new Ausleihe(Auto::getById($row['auto_id']), Mitarbeiter::getById($row['mitarbeiter_id']), $row['von'], $row['bis'], $row['id']);
+        }
+        return $ausleihe;
     }
 
-    function setMitarbeiter($mitarbeiter) {
-        $this->mitarbeiter = $mitarbeiter;
+    public static function getById($id) {
+        $pdo = DbConnect::connect();
+        $sql = "SELECT * from ausleihe WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return new Ausleihe(Auto::getById($rows[0]['auto_id']), Mitarbeiter::getById($rows[0]['mitarbeiter_id']), $rows[0]['von'], $rows[0]['bis'], $rows[0]['id']);
     }
 
-    function setVon($von) {
-        $this->von = $von;
+    public static function update($obj) {
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE ausleihe SET auto_id =:auto_id, mitarbeiter_id =:mitarbeiter_id, von =:von, bis =:bis  WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':auto_id' => $obj->getAuto()->getId(), ':mitarbeiter_id' => $obj->getMitarbeiter()->getId(), ':von' => $obj->getVon(), ':bis' => $obj->getBis(), ':id' => $obj->getId()]);
     }
 
-    function setBis($bis) {
-        $this->bis = $bis;
+    public static function insert($id) {
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO ausleihe(auto_id,mitarbeiter_id,von,bis) VALUES (:auto_id,:mitarbeiter_id,:von,:bis)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':auto_id' => $id->getAuto()->getId(), ':mitarbeiter_id' => $id->getMitarbeiter()->getId(), ':von' => $id->getVon(), ':bis' => $id->getBis()]);
+    }
+
+    public static function delete($id) {
+        $pdo = DbConnect::connect();
+        $sql = "delete from ausleihe WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
     }
 
 }

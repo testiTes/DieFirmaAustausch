@@ -9,8 +9,8 @@ class AusleiheController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            case 'showList':
 
+            case 'showList':
                 $out = Ausleihe::getAll();
                 $out = self::transform($out);
                 break;
@@ -22,6 +22,27 @@ class AusleiheController {
 
             case 'showInsert':
                 $out = self::transformUpdate();
+                break;
+
+            case 'update' :
+                $out = new Ausleihe(Auto::getById($_POST['fahrzeug']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), $_POST['uausid']);
+                $out = Ausleihe::update($out);
+                $out = Ausleihe::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'insert' :
+                $out = new Ausleihe(Auto::getById($_POST['fahrzeug']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), NULL);
+                $out = Ausleihe::insert($out);
+                $out = Ausleihe::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'delete' :
+                $out = $_POST['lausid'];
+                $out = Ausleihe::delete($out);
+                $out = Ausleihe::getAll();
+                $out = self::transform($out);
                 break;
 
             default:
@@ -42,7 +63,7 @@ class AusleiheController {
             $returnOut[$i]['von'] = HTML::dateTimeToDateAndTime($ausleihe->getVon());
             $returnOut[$i]['bis'] = HTML::dateTimeToDateAndTime($ausleihe->getBis());
             $returnOut[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $ausleihe->getId(), 'bearbeitenAusleihe', 'bearbeiten');
-            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $ausleihe->getId(), NULL, 'loeschen');
+            $returnOut[$i]['loeschen'] = HTML::buildButton('löschen', $ausleihe->getId(), 'loeschenAusleihe', 'loeschen');
             $i++;
         }
         return $returnOut;
@@ -52,8 +73,6 @@ class AusleiheController {
         $returnOut = [];
         $linkeSpalte = [];
         $rechteSpalte = [];
-        $options = [];
-        $autoOptions = [];
 
         for ($i = 0; $i < count(Ausleihe::getNames()); $i++) {
             array_push($linkeSpalte, Ausleihe::getNames()[$i]);
@@ -69,14 +88,15 @@ class AusleiheController {
 
         // überführe $dbWerte in rechte Spalte
         // dropdownMenü $options erstellen
-        $herst = Hersteller::getAll();
+        // auto $options erstellen
+        $auto = Auto::getAll();
         $options = [];
         $options[0] = ['value' => 0, 'label' => ''];
         $hatirgendwas = FALSE;
-        foreach ($herst as $o) {
-            $options[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getName()];
+        foreach ($auto as $o) {
+            $options[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getHersteller()->getName() . ' ' . $o->getName() . ' ' . $o->getKennzeichen()];
             if ($out !== NULL) {
-                if ($o->getId() === $out->getId()) {
+                if ($o->getId() == $out->getAuto()->getId()) {
                     $options[$o->getId()]['selected'] = TRUE;
                     $hatirgendwas = TRUE;
                 }
@@ -86,41 +106,43 @@ class AusleiheController {
             $options[0]['selected'] = TRUE;
         }
 
-        // auto $options erstellen
-        $auto = Auto::getAll();
+        // mitarbeiter $options erstellen
+
+        $mitarbeiter = Mitarbeiter::getAll();
         $options2 = [];
+        // zum abwählen
         $options2[0] = ['value' => 0, 'label' => ''];
-        $hatirgendwas2 = FALSE;
-        foreach ($auto as $o) {
-            $options2[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getName()];
+        $hatMitarbeiter = FALSE;
+        foreach ($mitarbeiter as $o) {
+            $options2[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getVorname() . ' ' . $o->getNachname()];
             if ($out !== NULL) {
-                if ($o->getId() == $out->getAuto()->getId()) {
+                if ($o->getId() === $out->getMitarbeiter()->getId()) {
                     $options2[$o->getId()]['selected'] = TRUE;
-                    $hatirgendwas2 = TRUE;
+                    $hatMitarbeiter = TRUE;
                 }
             }
         }
-        if ($hatirgendwas2 == FALSE) {
+        if ($hatMitarbeiter == FALSE) {
             $options2[0]['selected'] = TRUE;
         }
+
+
         if ($out !== NULL) {
-            array_push($rechteSpalte, HTML::buildDropDown('hersteller', '1', $options));
-            array_push($rechteSpalte, HTML::buildDropDown('auto', '1', $options2));
-            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', $dbWerte['auto']['kennzeichen']));
-            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['mitarbeiter']['vorname']));
-            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['mitarbeiter']['nachname']));
-            array_push($rechteSpalte, HTML::buildInput('text', 'von', HTML::dateTimeToDateAndTime($dbWerte['von'])));
-            array_push($rechteSpalte, HTML::buildInput('text', 'bis', HTML::dateTimeToDateAndTime($dbWerte['bis'])));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildDropDown('fahrzeug', '1', $options, NULL, 'fahrzeug'));
+            array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2, NULL, 'mitarbeiter'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', HTML::extractDateFromDateTime($dbWerte['von'])));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', HTML::extractTimeFromDateTime($dbWerte['von'])));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', HTML::extractDateFromDateTime($dbWerte['bis'])));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', HTML::extractTimeFromDateTime($dbWerte['bis'])));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateAusleihe', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildDropDown('hersteller', '1', $options));
-            array_push($rechteSpalte, HTML::buildDropDown('auto', '1', $options2));
-            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'von', ''));
-            array_push($rechteSpalte, HTML::buildInput('text', 'bis', ''));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildDropDown('fahrzeug', '1', $options, NULL, 'fahrzeug'));
+            array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2, NULL, 'mitarbeiter'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', '', NULL, 'vonTag'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', '', NULL, 'vonZeit'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', '', NULL, 'bisTag'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', '', NULL, 'bisZeit'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertAusleihe', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;

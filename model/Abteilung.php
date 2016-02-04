@@ -9,7 +9,7 @@ class Abteilung implements Aenderbar, JsonSerializable {
 
     private $id;
     private $name;
-    
+
     public static function getNames() {
         return ['Abteilung'];
     }
@@ -24,8 +24,12 @@ class Abteilung implements Aenderbar, JsonSerializable {
             'name' => $this->name];
     }
 
-    public static function delete($id) {
-        
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getName() {
+        return $this->name;
     }
 
     public static function getAll() {
@@ -42,14 +46,6 @@ class Abteilung implements Aenderbar, JsonSerializable {
         return $abteilung;
     }
 
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getName() {
-        return $this->name;
-    }
-
     public static function getById($id) {
         $pdo = DbConnect::connect();
         $sql = "SELECT * from abteilung WHERE id=:id";
@@ -59,12 +55,25 @@ class Abteilung implements Aenderbar, JsonSerializable {
         return new Abteilung($rows[0]['name'], $rows[0]['id']);
     }
 
-    public static function insert($id) {
-        
+    public static function update($obj) {
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE abteilung SET name =:name WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $obj->getName(), ':id' => $obj->getId()]);
     }
 
-    public static function update($obj) {
-        
+    public static function insert($id) {
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO abteilung(name) VALUES (:name)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $id->getName()]);
+    }
+
+    public static function delete($id) {
+        $pdo = DbConnect::connect();
+        $sql = "DELETE from abteilung WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
     }
 
 }

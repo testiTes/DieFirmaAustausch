@@ -23,16 +23,23 @@ class Auto implements Aenderbar, JsonSerializable {
         $this->id = $id;
     }
 
+    public function jsonSerialize() {
+        return['id' => $this->id,
+            'hersteller' => $this->hersteller,
+            'name' => $this->name,
+            'kennzeichen' => $this->kennzeichen];
+    }
+
     public function getId() {
         return $this->id;
     }
 
-    public function getHersteller() {
-        return $this->hersteller;
-    }
-
     public function getName() {
         return $this->name;
+    }
+
+    public function getHersteller() {
+        return $this->hersteller;
     }
 
     public function getKennzeichen() {
@@ -53,17 +60,6 @@ class Auto implements Aenderbar, JsonSerializable {
         return $autos;
     }
 
-    public function jsonSerialize() {
-        return['id' => $this->id,
-            'hersteller' => $this->hersteller,
-            'name' => $this->name,
-            'kennzeichen' => $this->kennzeichen];
-    }
-
-    public static function delete($id) {
-        
-    }
-
     public static function getById($id) {
         $pdo = DbConnect::connect();
         $sql = "SELECT * from auto WHERE id=:id";
@@ -73,6 +69,13 @@ class Auto implements Aenderbar, JsonSerializable {
         return new Auto($rows[0]['name'], Hersteller::getById($rows[0]['hersteller_id']), $rows[0]['kennzeichen'], $rows[0]['id']);
     }
 
+    public static function update($obj) {
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE auto SET name =:name, hersteller_id =:hersteller_id,kennzeichen =:kennzeichen WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $obj->getName(), ':hersteller_id' => $obj->getHersteller()->getId(), ':kennzeichen' => $obj->getKennzeichen(), ':id' => $obj->getId()]);
+    }
+
     public static function insert($id) {
         $pdo = DbConnect::connect();
         $sql = "INSERT INTO auto(name,hersteller_id,kennzeichen) VALUES (:name,:hersteller_id,:kennzeichen)";
@@ -80,11 +83,11 @@ class Auto implements Aenderbar, JsonSerializable {
         $stmt->execute([':name' => $id->getName(), ':hersteller_id' => $id->getHersteller()->getId(), ':kennzeichen' => $id->getKennzeichen()]);
     }
 
-    public static function update($obj) {
+    public static function delete($id) {
         $pdo = DbConnect::connect();
-        $sql = "UPDATE auto SET name =:name, hersteller_id =:hersteller_id,kennzeichen =:kennzeichen WHERE id =:id";
+        $sql = "DELETE from auto WHERE id=:id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':name' => $obj->getName(), ':hersteller_id' => $obj->getHersteller()->getId(), ':kennzeichen' => $obj->getKennzeichen(), ':id' => $obj->getId()]);
+        $stmt->execute([':id' => $id]);
     }
 
 }

@@ -26,52 +26,15 @@ class Mitarbeiter implements Aenderbar, JsonSerializable {
         $this->vorgesetzter = $vorgesetzter;
     }
 
-    public static function delete($id) {
-        
-    }
-
-    public static function getById($id) {
-        $pdo = DbConnect::connect();
-        $sql = "SELECT * from mitarbeiter WHERE id=:id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':id' => $id]);
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return new Mitarbeiter($rows[0]['vorname'], $rows[0]['nachname'], $rows[0]['geschlecht'], $rows[0]['geburtsdatum'], Abteilung::getById($rows[0]['abteilung_id']), $rows[0]['stundenlohn'], Mitarbeiter::getVorgesetzterById($rows[0]['vorgesetzter_id']), $rows[0]['id']);
-    }
-
-    public static function getVorgesetzterById($id) {
-        if ($id !== NULL) {
-            $pdo = DbConnect::connect();
-            $sql = "SELECT * from mitarbeiter WHERE id=:id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([':id' => $id]);
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return new Mitarbeiter($rows[0]['vorname'], $rows[0]['nachname'], $rows[0]['geschlecht'], $rows[0]['geburtsdatum'], Abteilung::getById($rows[0]['abteilung_id']), $rows[0]['stundenlohn'], NULL, $rows[0]['id']);
-        } else {
-            return NULL;
-        }
-    }
-
-    public static function insert($object) {
-        
-    }
-
-    public static function update($object) {
-        
-    }
-
-    public static function getAll() {
-        $pdo = DbConnect::connect();
-        $sql = "SELECT * from mitarbeiter";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $mit = [];
-
-        foreach ($rows as $row) {
-            $mit[$row['id']] = new Mitarbeiter($row['vorname'], $row['nachname'], $row['geschlecht'], $row['geburtsdatum'], Abteilung::getById($row['abteilung_id']), $row['stundenlohn'], Mitarbeiter::getVorgesetzterById($row['vorgesetzter_id']), $row['id']);
-        }
-        return $mit;
+    public function jsonSerialize() {
+        return['id' => $this->id,
+            'vorname' => $this->vorname,
+            'nachname' => $this->nachname,
+            'geschlecht' => $this->geschlecht,
+            'geburtsdatum' => $this->geburtsdatum,
+            'abteilung' => $this->abteilung,
+            'stundenlohn' => $this->stundenlohn,
+            'vorgesetzter' => $this->vorgesetzter];
     }
 
     function getId() {
@@ -138,15 +101,62 @@ class Mitarbeiter implements Aenderbar, JsonSerializable {
         $this->vorgesetzter = $vorgesetzter;
     }
 
-    public function jsonSerialize() {
-        return['id' => $this->id,
-            'vorname' => $this->vorname,
-            'nachname' => $this->nachname,
-            'geschlecht' => $this->geschlecht,
-            'geburtsdatum' => $this->geburtsdatum,
-            'abteilung' => $this->abteilung,
-            'stundenlohn' => $this->stundenlohn,
-            'vorgesetzter' => $this->vorgesetzter];
+    public static function getAll() {
+        $pdo = DbConnect::connect();
+        $sql = "SELECT * from mitarbeiter";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $mit = [];
+
+        foreach ($rows as $row) {
+            $mit[$row['id']] = new Mitarbeiter($row['vorname'], $row['nachname'], $row['geschlecht'], $row['geburtsdatum'], Abteilung::getById($row['abteilung_id']), $row['stundenlohn'], Mitarbeiter::getVorgesetzterById($row['vorgesetzter_id']), $row['id']);
+        }
+        return $mit;
+    }
+
+    public static function getById($id) {
+        $pdo = DbConnect::connect();
+        $sql = "SELECT * from mitarbeiter WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return new Mitarbeiter($rows[0]['vorname'], $rows[0]['nachname'], $rows[0]['geschlecht'], $rows[0]['geburtsdatum'], Abteilung::getById($rows[0]['abteilung_id']), $rows[0]['stundenlohn'], Mitarbeiter::getVorgesetzterById($rows[0]['vorgesetzter_id']), $rows[0]['id']);
+    }
+
+    public static function getVorgesetzterById($id) {
+        if ($id !== NULL) {
+            $pdo = DbConnect::connect();
+            $sql = "SELECT * from mitarbeiter WHERE id=:id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return new Mitarbeiter($rows[0]['vorname'], $rows[0]['nachname'], $rows[0]['geschlecht'], $rows[0]['geburtsdatum'], Abteilung::getById($rows[0]['abteilung_id']), $rows[0]['stundenlohn'], NULL, $rows[0]['id']);
+        } else {
+            return NULL;
+        }
+    }
+
+    public static function update($obj) {
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE mitarbeiter SET vorname =:vorname, nachname =:nachname, geschlecht =:geschlecht, geburtsdatum =:geburtsdatum, abteilung_id =:abteilung_id, stundenlohn =:stundenlohn, vorgesetzter_id =:vorgesetzter_id WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $vorgesetzter_id = is_object($obj->getVorgesetzter()) ? $obj->getVorgesetzter()->getId() : NULL;
+        $stmt->execute([':vorname' => $obj->getVorname(), ':nachname' => $obj->getNachname(), ':geschlecht' => $obj->getGeschlecht(), ':geburtsdatum' => $obj->getGeburtsdatum(), ':abteilung_id' => $obj->getAbteilung()->getId(), ':stundenlohn' => $obj->getStundenlohn(), ':vorgesetzter_id' => $vorgesetzter_id, ':id' => $obj->getId()]);
+    }
+
+    public static function insert($id) {
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO mitarbeiter(vorname,nachname,geschlecht,geburtsdatum,abteilung_id,stundenlohn,vorgesetzter_id) VALUES (:vorname,:nachname,:geschlecht,:geburtsdatum,:abteilung_id,:stundenlohn,:vorgesetzter_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':vorname' => $id->getVorname(), ':nachname' => $id->getNachname(), ':geschlecht' => $id->getGeschlecht(), ':geburtsdatum' => $id->getGeburtsdatum(), ':abteilung_id' => $id->getAbteilung()->getId(), ':stundenlohn' => $id->getStundenlohn(), ':vorgesetzter_id' => $id->getVorgesetzter()->getId()]);
+    }
+
+    public static function delete($id) {
+        $pdo = DbConnect::connect();
+        $sql = "delete from mitarbeiter WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
     }
 
 }

@@ -9,8 +9,8 @@ class HerstellerController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
+            
             case 'showList':
-
                 $out = Hersteller::getAll();
                 $out = self::transform($out);
                 break;
@@ -25,7 +25,7 @@ class HerstellerController {
                 break;
 
             case 'update' :
-                $out = new Hersteller($_POST['uHersteller'], $_POST['uheid']);
+                $out = new Hersteller($_POST['Hersteller'], $_POST['uheid']);
                 $out = Hersteller::update($out);
                 $out = Hersteller::getAll();
                 $out = self::transform($out);
@@ -34,6 +34,13 @@ class HerstellerController {
             case 'insert' :
                 $out = new Hersteller($_POST['hersteller'], NULL);
                 $out = Hersteller::insert($out);
+                $out = Hersteller::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'delete' :
+                $out = $_POST['lheid'];
+                $out = Hersteller::delete($out);
                 $out = Hersteller::getAll();
                 $out = self::transform($out);
                 break;
@@ -50,7 +57,7 @@ class HerstellerController {
         foreach ($out as $hersteller) {
             $herst[$i]['hersteller'] = $hersteller->getName();
             $herst[$i]['bearbeiten'] = HTML::buildButton('bearbeiten', $hersteller->getId(), 'bearbeitenHersteller', 'bearbeiten');
-            $herst[$i]['loeschen'] = HTML::buildButton('löschen', $hersteller->getId(), NULL, 'loeschen');
+            $herst[$i]['loeschen'] = HTML::buildButton('löschen', $hersteller->getId(), 'loeschenHersteller', 'loeschen');
             $i++;
         }
         return $herst;

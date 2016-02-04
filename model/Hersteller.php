@@ -32,10 +32,6 @@ class Hersteller implements Aenderbar, JsonSerializable {
         return $this->name;
     }
 
-    public static function delete($id) {
-        
-    }
-
     public static function getAll() {
         $pdo = DbConnect::connect();
         $sql = "SELECT * from hersteller ORDER BY id";
@@ -59,6 +55,13 @@ class Hersteller implements Aenderbar, JsonSerializable {
         return new Hersteller($rows[0]['name'], $rows[0]['id']);
     }
 
+    public static function update($obj) {
+        $pdo = DbConnect::connect();
+        $sql = "UPDATE hersteller SET name =:name WHERE id =:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $obj->getName(), ':id' => $obj->getId()]);
+    }
+
     public static function insert($id) {
         $pdo = DbConnect::connect();
         $sql = "INSERT INTO hersteller(name) VALUES (:name)";
@@ -66,11 +69,11 @@ class Hersteller implements Aenderbar, JsonSerializable {
         $stmt->execute([':name' => $id->getName()]);
     }
 
-    public static function update($obj) {
+    public static function delete($id) {
         $pdo = DbConnect::connect();
-        $sql = "UPDATE hersteller SET name =:name WHERE id =:id";
+        $sql = "DELETE from hersteller WHERE id=:id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':name' => $obj->getName(),':id' => $obj->getId()]);
+        $stmt->execute([':id' => $id]);
     }
 
 }

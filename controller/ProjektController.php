@@ -9,8 +9,8 @@ class ProjektController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            case 'showList':
 
+            case 'showList':
                 $out = Projekt::getAll();
                 $out = self::transform($out);
                 break;
@@ -22,6 +22,27 @@ class ProjektController {
 
             case 'showInsert':
                 $out = self::transformUpdate();
+                break;
+
+            case 'update' :
+                $out = new Projekt($_POST['Projekt'], $_POST['uprid']);
+                $out = Projekt::update($out);
+                $out = Projekt::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'insert' :
+                $out = new Projekt($_POST['projekt'], NULL);
+                $out = Projekt::insert($out);
+                $out = Projekt::getAll();
+                $out = self::transform($out);
+                break;
+
+            case 'delete' :
+                $out = $_POST['lprid'];
+                $out = Projekt::delete($out);
+                $out = Projekt::getAll();
+                $out = self::transform($out);
                 break;
 
             default:
@@ -60,11 +81,11 @@ class ProjektController {
         }
         // überführe $dbWerte in rechte Spalte
         if ($out !== NULL) {
-            array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name']));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'projekt', $dbWerte['name'], NULL, 'projekt'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateProjekt', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildInput('text', 'name', ''));
-            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', NULL, 'OK'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'projekt', '', NULL, 'projekt'));
+            array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertProjekt', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
         return $returnOut;

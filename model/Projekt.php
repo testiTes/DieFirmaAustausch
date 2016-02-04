@@ -19,21 +19,17 @@ class Projekt implements Aenderbar, JsonSerializable {
         $this->id = $id;
     }
 
+    public function jsonSerialize() {
+        return['id' => $this->id,
+            'name' => $this->name];
+    }
+
     public function getId() {
         return $this->id;
     }
 
     public function getName() {
         return $this->name;
-    }
-
-    public function jsonSerialize() {
-        return['id' => $this->id,
-            'name' => $this->name];
-    }
-
-    public static function delete($id) {
-        
     }
 
     public static function getAll() {
@@ -61,16 +57,25 @@ class Projekt implements Aenderbar, JsonSerializable {
         return new Projekt($rows[0]['name'], $rows[0]['id']);
     }
 
-    public static function insert($id) {
+    public static function update($obj) {
         $pdo = DbConnect::connect();
-        $sql = "INSERT INTO bbqfirma.projekt VALUES name=:name";
+        $sql = "UPDATE projekt SET name =:name WHERE id =:id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':name' => $id]);
-        
+        $stmt->execute([':name' => $obj->getName(), ':id' => $obj->getId()]);
     }
 
-    public static function update($obj) {
-        
+    public static function insert($id) {
+        $pdo = DbConnect::connect();
+        $sql = "INSERT INTO projekt(name) VALUES (:name)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':name' => $id->getName()]);
+    }
+
+    public static function delete($id) {
+        $pdo = DbConnect::connect();
+        $sql = "DELETE from projekt WHERE id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
     }
 
 }
