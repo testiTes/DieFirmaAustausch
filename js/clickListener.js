@@ -3,20 +3,18 @@ $(document).ready(function () {
     $('button').click(function () {
         var inputs = document.getElementsByTagName('input');
         var drops = document.getElementsByTagName('select');
-
-        if (this.value == 'bearbeiten') {
+        if (this.value === 'bearbeiten') {
             var aTableEdit = getMenuOptions(this.className);
         }
 
-        // Ausleihe insert/update/delete
-
-        if (this.className == "updateAusleihe") {
+// Ausleihe insert/update/delete
+// update
+        if (this.className === 'updateAusleihe') {
             var id = inputs['id'].value;
             var fahrzeug = drops['fahrzeug'].value;
             var mitarbeiter = drops['mitarbeiter'].value;
             var vonDate = inputs['vonTag'].value + ' ' + inputs['vonZeit'].value;
             var bisDate = inputs['bisTag'].value + ' ' + inputs['bisZeit'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -33,16 +31,12 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertAusleihe") {
+// insert
+        if (this.className === 'insertAusleihe') {
             var fahrzeug = drops['fahrzeug'].value;
             var mitarbeiter = drops['mitarbeiter'].value;
             var vonDate = inputs['vonTag'].value + ' ' + inputs['vonZeit'].value;
             var bisDate = inputs['bisTag'].value + ' ' + inputs['bisZeit'].value;
-            alert(fahrzeug);
-            alert(mitarbeiter);
-            alert(vonDate);
-            alert(bisDate);
             $.post("index.php",
                     {
                         ajax: "true",
@@ -58,8 +52,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenAusleihe' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenAusleihe' && this.value === 'loeschen') {
             var lausid = this.id;
             $.post("index.php",
                     {
@@ -74,11 +68,11 @@ $(document).ready(function () {
             });
         }
 
-        // Projekt insert/update/delete
-        if (this.className == "updateProjekt") {
+// Projekt insert/update/delete
+// update
+        if (this.className === 'updateProjekt') {
             var id = inputs['id'].value;
             var projekt = inputs['projekt'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -92,10 +86,9 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertProjekt") {
+// insert
+        if (this.className === 'insertProjekt') {
             var projekt = inputs['projekt'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -108,8 +101,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenProjekt' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenProjekt' && this.value === 'loeschen') {
             var id = this.id;
             $.post("index.php",
                     {
@@ -124,8 +117,9 @@ $(document).ready(function () {
             });
         }
 
-        // Mitarbeiter insert/update/delete
-        if (this.className == "updateMitarbeiter") {
+// Mitarbeiter insert/update/delete
+// update
+        if (this.className === 'updateMitarbeiter') {
             var id = inputs['id'].value;
             var vorname = inputs['vorname'].value;
             var nachname = inputs['nachname'].value;
@@ -134,7 +128,6 @@ $(document).ready(function () {
             var abteilung_id = drops['abteilung'].value;
             var stundenlohn = inputs['stundenlohn'].value;
             var vorgesetzter_id = drops['vorgesetzter'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -154,8 +147,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertMitarbeiter") {
+// insert
+        if (this.className === 'insertMitarbeiter') {
             var vorname = inputs['vorname'].value;
             var nachname = inputs['nachname'].value;
             var geschlecht = $('input[type="radio"]:checked').val();
@@ -163,7 +156,6 @@ $(document).ready(function () {
             var abteilung_id = drops['abteilung'].value;
             var stundenlohn = inputs['stundenlohn'].value;
             var vorgesetzter_id = drops['vorgesetzter'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -182,8 +174,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenMitarbeiter' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenMitarbeiter' && this.value === 'loeschen') {
             var lmaid = this.id;
             $.post("index.php",
                     {
@@ -198,11 +190,11 @@ $(document).ready(function () {
             });
         }
 
-        // Abteilung insert/update/delete
-        if (this.className == "updateAbteilung") {
+// Abteilung insert/update/delete
+// update
+        if (this.className === 'updateAbteilung') {
             var id = inputs['id'].value;
             var abteilung = inputs['abteilung'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -216,10 +208,9 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertAbteilung") {
+// insert
+        if (this.className === 'insertAbteilung') {
             var abteilung = inputs['abteilung'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -232,8 +223,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenAbteilung' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenAbteilung' && this.value === 'loeschen') {
             var id = this.id;
             $.post("index.php",
                     {
@@ -248,12 +239,11 @@ $(document).ready(function () {
             });
         }
 
-        // Hersteller insert/update/delete
-
-        if (this.className == "updateHersteller") {
+// Hersteller insert/update/delete
+// update
+        if (this.className === 'updateHersteller') {
             var id = inputs['id'].value;
             var hersteller = inputs['name'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -267,10 +257,9 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertHersteller") {
+// insert
+        if (this.className === 'insertHersteller') {
             var hersteller = inputs['name'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -283,8 +272,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenHersteller' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenHersteller' && this.value === 'loeschen') {
             var id = this.id;
             $.post("index.php",
                     {
@@ -299,14 +288,13 @@ $(document).ready(function () {
             });
         }
 
-        // Auto insert/update/delete
-
-        if (this.className == "updateAuto") {
+// Auto insert/update/delete
+// update
+        if (this.className === 'updateAuto') {
             var id = inputs['id'].value;
             var hersteller_id = drops['hersteller'].value;
             var auto = inputs['autoName'].value;
             var kennzeichen = inputs['kennzeichen'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -322,12 +310,11 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertAuto") {
+// insert
+        if (this.className === 'insertAuto') {
             var hersteller_id = drops['hersteller'].value;
             var auto = inputs['autoName'].value;
             var kennzeichen = inputs['kennzeichen'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -342,8 +329,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenAuto' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenAuto' && this.value === 'loeschen') {
             var id = this.id;
             $.post("index.php",
                     {
@@ -358,15 +345,14 @@ $(document).ready(function () {
             });
         }
 
-        // ProjektMitarbeiter insert/update/delete
-
-        if (this.className == "updateProjektMitarbeiter") {
+// ProjektMitarbeiter insert/update/delete
+// update
+        if (this.className === 'updateProjektMitarbeiter') {
             var id = inputs['id'].value;
             var projekt = drops['projekt'].value;
             var mitarbeiter = drops['mitarbeiter'].value;
             var vonDate = inputs['vonTag'].value + ' ' + inputs['vonZeit'].value;
             var bisDate = inputs['bisTag'].value + ' ' + inputs['bisZeit'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -383,13 +369,12 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == "insertProjektMitarbeiter") {
+// insert
+        if (this.className === 'insertProjektMitarbeiter') {
             var projekt = drops['projekt'].value;
             var mitarbeiter = drops['mitarbeiter'].value;
             var vonDate = inputs['vonTag'].value + ' ' + inputs['vonZeit'].value;
             var bisDate = inputs['bisTag'].value + ' ' + inputs['bisZeit'].value;
-
             $.post("index.php",
                     {
                         ajax: "true",
@@ -405,8 +390,8 @@ $(document).ready(function () {
                 $('#content').html(data);
             });
         }
-
-        if (this.className == 'loeschenProjektMitarbeiter' && this.value == 'loeschen') {
+// delete
+        if (this.className === 'loeschenProjektMitarbeiter' && this.value === 'loeschen') {
             var lpmid = this.id;
             $.post("index.php",
                     {
@@ -421,9 +406,9 @@ $(document).ready(function () {
             });
         }
 
-        // für test.html
+// für test.html
 
-        if (this.id == "ha") {
+        if (this.id === 'test') {
             var action = inputs['action'].value;
             var area = inputs['area'].value;
             var view = inputs['view'].value;
@@ -441,7 +426,7 @@ $(document).ready(function () {
             });
         }
 
-        // aufruf der unterschiedlichen formulare und views
+// aufruf der unterschiedlichen formulare und views
 
         $.post("index.php",
                 {
@@ -470,12 +455,11 @@ $(document).ready(function () {
             $('#content').html(data);
         });
     });
-
     function getMenuOptions(id) {
         var options = [];
         switch (id) {
 
-            //Show
+            // Show
 
             case 'menuMitarbeiterAnzeige' :
                 options = ['showList', 'Mitarbeiter', 'listeMitarbeiter'];
@@ -499,7 +483,7 @@ $(document).ready(function () {
                 options = ['showList', 'ProjektMitarbeiter', 'listeProjektMitarbeiter'];
                 break;
 
-                //Insert
+                // Insert
 
             case 'menuMitarbeiterNeuAnlegen' :
                 options = ['showInsert', 'Mitarbeiter', 'formularMitarbeiter'];
@@ -523,7 +507,7 @@ $(document).ready(function () {
                 options = ['showInsert', 'ProjektMitarbeiter', 'formularProjektMitarbeiter'];
                 break;
 
-                //Update
+                // Update
 
             case 'bearbeitenMitarbeiter' :
                 options = ['showUpdate', 'Mitarbeiter', 'formularMitarbeiter'];
@@ -547,7 +531,7 @@ $(document).ready(function () {
                 options = ['showUpdate', 'ProjektMitarbeiter', 'formularProjektMitarbeiter'];
                 break;
 
-                //Default also Standard
+                // Default 
 
             default:
                 options = ['standard', 'standard', 'standard'];
@@ -559,17 +543,14 @@ $(document).ready(function () {
 
     $('#cssmenu > ul > li > a').off('click');
     $('#cssmenu > ul > li > a').click(function () {
-//        alert(this.id);
         $('#cssmenu li').removeClass('active');
         $(this).closest('li').addClass('active');
         var checkElement = $(this).next();
         if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-//            alert(this.id);
             $(this).closest('li').removeClass('active');
             checkElement.slideUp('normal');
         }
         if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-//            alert(this.id);
             $('#cssmenu ul ul:visible').slideUp('normal');
             checkElement.slideDown('normal');
         }
@@ -577,6 +558,39 @@ $(document).ready(function () {
             return true;
         } else {
             return false;
+        }
+    });
+
+    // datepicker für geburtsdatum und vonTag und bisTag
+
+    $('#geburtsdatum,#vonTag,#bisTag').datepicker({
+        inline: true,
+        showOtherMonths: true,
+        closeText: 'schließen',
+        prevText: '&#x3c;zurück',
+        nextText: 'Vor&#x3e;',
+        currentText: 'heute',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+            'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        weekHeader: 'Wo',
+        firstDay: new Date(),
+        dateFormat: "dd.mm.yy",
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        showAnim: "slideDown",
+        showWeek: true,
+        onClose: function (selectedDate) {
+            if (this.id !== 'bisTag') {
+                $('#bisTag').datepicker("option", "minDate", selectedDate);
+            } else {
+                $('#vonTag').datepicker("option", "maxDate", selectedDate);
+            }
         }
     });
 });

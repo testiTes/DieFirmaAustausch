@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
         <link href="./css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
         <link href="./css/mobile.css" rel="stylesheet" type="text/css" media="handheld" /> 
         <link href="./css/largescreen.css" rel="stylesheet" type="text/css" media="tv" />

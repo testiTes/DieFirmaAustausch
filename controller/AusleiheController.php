@@ -25,14 +25,14 @@ class AusleiheController {
                 break;
 
             case 'update' :
-                $out = new Ausleihe(Auto::getById($_POST['fahrzeug']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), $_POST['uausid']);
+                $out = new Ausleihe(Auto::getById($_POST['fahrzeug']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::dateAndTimeToDateTime($_POST['von']), HTML::dateAndTimeToDateTime($_POST['bis']), $_POST['uausid']);
                 $out = Ausleihe::update($out);
                 $out = Ausleihe::getAll();
                 $out = self::transform($out);
                 break;
 
             case 'insert' :
-                $out = new Ausleihe(Auto::getById($_POST['fahrzeug']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::DateAndTimeTodateTime($_POST['von']), HTML::DateAndTimeTodateTime($_POST['bis']), NULL);
+                $out = new Ausleihe(Auto::getById($_POST['fahrzeug']), Mitarbeiter::getById($_POST['mitarbeiter']), HTML::dateAndTimeToDateTime($_POST['von']), HTML::dateAndTimeToDateTime($_POST['bis']), NULL);
                 $out = Ausleihe::insert($out);
                 $out = Ausleihe::getAll();
                 $out = self::transform($out);
@@ -77,17 +77,18 @@ class AusleiheController {
         for ($i = 0; $i < count(Ausleihe::getNames()); $i++) {
             array_push($linkeSpalte, Ausleihe::getNames()[$i]);
         }
+        
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
+        
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
 
         // überführe $dbWerte in rechte Spalte
-        // dropdownMenü $options erstellen
         // auto $options erstellen
         $auto = Auto::getAll();
         $options = [];

@@ -71,11 +71,13 @@ class HerstellerController {
         for ($i = 0; $i < count(Hersteller::getNames()); $i++) {
             array_push($linkeSpalte, Hersteller::getNames()[$i]);
         }
+        
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
+        
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }

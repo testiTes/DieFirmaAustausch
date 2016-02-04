@@ -69,38 +69,6 @@ class Mitarbeiter implements Aenderbar, JsonSerializable {
         return $this->vorgesetzter;
     }
 
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setVorname($vorname) {
-        $this->vorname = $vorname;
-    }
-
-    function setNachname($nachname) {
-        $this->nachname = $nachname;
-    }
-
-    function setGeschlecht($geschlecht) {
-        $this->geschlecht = $geschlecht;
-    }
-
-    function setGeburtsdatum($geburtsdatum) {
-        $this->geburtsdatum = $geburtsdatum;
-    }
-
-    function setAbteilung(Abteilung $abteilung) {
-        $this->abteilung = $abteilung;
-    }
-
-    function setStundenlohn($stundenlohn) {
-        $this->stundenlohn = $stundenlohn;
-    }
-
-    function setVorgesetzter(Mitarbeiter $vorgesetzter) {
-        $this->vorgesetzter = $vorgesetzter;
-    }
-
     public static function getAll() {
         $pdo = DbConnect::connect();
         $sql = "SELECT * from mitarbeiter";
@@ -149,7 +117,7 @@ class Mitarbeiter implements Aenderbar, JsonSerializable {
         $pdo = DbConnect::connect();
         $sql = "INSERT INTO mitarbeiter(vorname,nachname,geschlecht,geburtsdatum,abteilung_id,stundenlohn,vorgesetzter_id) VALUES (:vorname,:nachname,:geschlecht,:geburtsdatum,:abteilung_id,:stundenlohn,:vorgesetzter_id)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':vorname' => $id->getVorname(), ':nachname' => $id->getNachname(), ':geschlecht' => $id->getGeschlecht(), ':geburtsdatum' => $id->getGeburtsdatum(), ':abteilung_id' => $id->getAbteilung()->getId(), ':stundenlohn' => $id->getStundenlohn(), ':vorgesetzter_id' => $id->getVorgesetzter()->getId()]);
+        $stmt->execute([':vorname' => $id->getVorname(), ':nachname' => $id->getNachname(), ':geschlecht' => $id->getGeschlecht(), ':geburtsdatum' => $id->getGeburtsdatum(), ':abteilung_id' => $id->getAbteilung()->getId(), ':stundenlohn' => $id->getStundenlohn(), ':vorgesetzter_id' => $id->getVorgesetzter()]);
     }
 
     public static function delete($id) {

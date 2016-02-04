@@ -68,9 +68,12 @@ class AutoController {
     private static function transformUpdate($out = NULL) {
         $returnOut = [];
         $linkeSpalte = [];
+        $rechteSpalte = [];
+        
         for ($i = 0; $i < count(Auto::getNames()); $i++) {
             array_push($linkeSpalte, Auto::getNames()[$i]);
         }
+        
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
@@ -80,7 +83,7 @@ class AutoController {
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
-        $rechteSpalte = [];
+        
         // überführe $dbWerte in rechte Spalte
         // hersteller $options ertellen
         $options = [];
@@ -97,6 +100,7 @@ class AutoController {
                 }
             }
         }
+        
         if ($out !== NULL) {
             array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options, NULL, 'hersteller'));
             array_push($rechteSpalte, HTML::buildInput('text', 'autoName', $dbWerte['name'], NULL, 'autoName'));

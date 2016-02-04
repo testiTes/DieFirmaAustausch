@@ -69,14 +69,18 @@ class MitarbeiterController {
     private static function transformUpdate($out = NULL) {
         $returnOut = [];
         $linkeSpalte = [];
+        $rechteSpalte = [];
+
         for ($i = 0; $i < count(Mitarbeiter::getNames()); $i++) {
             array_push($linkeSpalte, Mitarbeiter::getNames()[$i]);
         }
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
+
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
@@ -157,7 +161,7 @@ class MitarbeiterController {
             array_push($radioOptions, $radioOption);
         }
 
-        $rechteSpalte = [];
+
         if ($out !== NULL) {
             array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['vorname'], NULL, 'vorname'));
             array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['nachname'], NULL, 'nachname'));

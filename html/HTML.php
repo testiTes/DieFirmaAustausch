@@ -125,33 +125,34 @@ class HTML {
         }
         return $html;
     }
-
+    
+    // datum aus datenbank wird in deutsches format(tag/monat/jahr) ausgegeben
     public static function mysqlToGerman($date) {
         return implode('.', array_reverse(explode('-', $date)));
     }
-
+    // datum wird wieder in datenbank format(jahr/monat/tag) ausgegeben
     public static function germanToMysql($date) {
         return implode('-', array_reverse(explode('.', $date)));
     }
-
+    
     public static function dateTimeToDateAndTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('.', array_reverse(explode('-', $datum[1])));
         return $datum[1] . ' ' . $datum[0];
     }
-
-    public static function DateAndTimeTodateTime($date) {
+   
+    public static function dateAndTimeToDateTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('-', array_reverse(explode('.', $datum[1])));
         return $datum[1] . ' ' . $datum[0];
     }
-
+    // gibt nur das Datum aus dem DateTime Feld aus
     public static function extractDateFromDateTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('.', array_reverse(explode('-', $datum[1])));
         return $datum[1];
     }
-
+    // gibt nur die Zeit aus dem DateTime Feld aus
     public static function extractTimeFromDateTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('.', array_reverse(explode('-', $datum[1])));

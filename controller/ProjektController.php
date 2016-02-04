@@ -71,14 +71,17 @@ class ProjektController {
         for ($i = 0; $i < count(Projekt::getNames()); $i++) {
             array_push($linkeSpalte, Projekt::getNames()[$i]);
         }
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
+
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
+
         // überführe $dbWerte in rechte Spalte
         if ($out !== NULL) {
             array_push($rechteSpalte, HTML::buildInput('text', 'projekt', $dbWerte['name'], NULL, 'projekt'));
