@@ -24,7 +24,6 @@ try {
 
 include 'view' . DIRECTORY_SEPARATOR . $view . '.php';
 
-
 $ajax = isset($_POST['ajax']) ? $_POST['ajax'] : 'false';
 
 if ($ajax == 'false') {
