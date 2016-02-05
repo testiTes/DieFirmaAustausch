@@ -50,7 +50,7 @@ class HTML {
         return '<button type="button" id="' . $id . '" class="' . $class . '" value="' . $value . '">' . $label . '</button>';
     }
 
-    public static function buildInput($type, $name, $value, $readonly = NULL, $id = NUll, $class = NULL) {
+    public static function buildInput($type, $name, $value, $readonly = NULL, $id = NUll, $class = NULL, $placeholder = NULL) {
         $html = '<input type="';
         $html .= $type;
         $html .= '" name="';
@@ -62,14 +62,13 @@ class HTML {
             $html .= ' readonly="readonly"';
         }
         if ($id !== NULL) {
-            $html .= ' id="';
-            $html .= $id;
-            $html .= '"';
+            $html .= ' id="' . $id . '"';
         }
         if ($class !== NULL) {
-            $html .= ' class="';
-            $html .= $class;
-            $html .= '"';
+            $html .= ' class="' . $class . '"';
+        }
+        if ($placeholder !== NULL) {
+            $html .= ' placeholder ="' . $placeholder . '"';
         }
         $html .= ' />';
         return $html;
@@ -125,33 +124,36 @@ class HTML {
         }
         return $html;
     }
-    
+
     // datum aus datenbank wird in deutsches format(tag/monat/jahr) ausgegeben
     public static function mysqlToGerman($date) {
         return implode('.', array_reverse(explode('-', $date)));
     }
+
     // datum wird wieder in datenbank format(jahr/monat/tag) ausgegeben
     public static function germanToMysql($date) {
         return implode('-', array_reverse(explode('.', $date)));
     }
-    
+
     public static function dateTimeToDateAndTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('.', array_reverse(explode('-', $datum[1])));
         return $datum[1] . ' ' . $datum[0];
     }
-   
+
     public static function dateAndTimeToDateTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('-', array_reverse(explode('.', $datum[1])));
         return $datum[1] . ' ' . $datum[0];
     }
+
     // gibt nur das Datum aus dem DateTime Feld aus
     public static function extractDateFromDateTime($date) {
         $datum = array_reverse(explode(' ', $date));
         $datum[1] = implode('.', array_reverse(explode('-', $datum[1])));
         return $datum[1];
     }
+
     // gibt nur die Zeit aus dem DateTime Feld aus
     public static function extractTimeFromDateTime($date) {
         $datum = array_reverse(explode(' ', $date));

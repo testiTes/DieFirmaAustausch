@@ -128,6 +128,7 @@ $(document).ready(function () {
             var abteilung_id = drops['abteilung'].value;
             var stundenlohn = inputs['stundenlohn'].value;
             var vorgesetzter_id = drops['vorgesetzter'].value;
+            alert(vorgesetzter_id);
             $.post("index.php",
                     {
                         ajax: "true",
@@ -593,4 +594,11 @@ $(document).ready(function () {
             }
         }
     });
+
+    // timepicker
+    $('#vonZeit,#bisZeit').timepicker({
+        disableTextInput: false,
+        timeFormat: 'H:i'
+    });
+
 });

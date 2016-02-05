@@ -77,13 +77,13 @@ class AusleiheController {
         for ($i = 0; $i < count(Ausleihe::getNames()); $i++) {
             array_push($linkeSpalte, Ausleihe::getNames()[$i]);
         }
-        
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
-        
+
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }

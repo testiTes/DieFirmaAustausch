@@ -25,7 +25,7 @@ class MitarbeiterController {
                 break;
 
             case 'update':
-                $vorgesetzter = ($_POST['vorgesetzter_id']) ? Mitarbeiter::getById($_POST['vorgesetzter_id']) : NULL;
+                $vorgesetzter = ($_POST['vorgesetzter_id']) ? Mitarbeiter::getVorgesetzterById($_POST['vorgesetzter_id']) : NULL;
                 $out = new Mitarbeiter($_POST['vorname'], $_POST['nachname'], $_POST['geschlecht'], HTML::germanToMysql($_POST['geburtsdatum']), Abteilung::getById($_POST['abteilung_id']), $_POST['stundenlohn'], $vorgesetzter, $_POST['umaid']);
                 $out = Mitarbeiter::update($out);
                 $out = Mitarbeiter::getAll();
@@ -108,7 +108,6 @@ class MitarbeiterController {
 
         // options für die vorgesetzten
         $vorgesetzte = Mitarbeiter::getAll();
-
         $options2 = [];
 
         // zum abwählen
@@ -117,9 +116,9 @@ class MitarbeiterController {
         foreach ($vorgesetzte as $o) {
             $options2[$o->getId()] = ['value' => $o->getId(), 'label' => $o->getVorname() . ' ' . $o->getNachname()];
             if ($out !== NULL) {
-                if ($o->getVorgesetzter() !== NULL) {
-                    if ($o->getId() === $out->getId()) {
-                        $options2[$o->getVorgesetzter()->getId()]['selected'] = TRUE;
+                if ($out->getVorgesetzter() !== NULL) {
+                    if ($o->getId() === $out->getVorgesetzter()->getId()) {
+                        $options2[$out->getVorgesetzter()->getId()]['selected'] = TRUE;
                         $hatVorgesetzte = TRUE;
                     }
                 } else {
@@ -161,12 +160,11 @@ class MitarbeiterController {
             array_push($radioOptions, $radioOption);
         }
 
-
         if ($out !== NULL) {
             array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['vorname'], NULL, 'vorname'));
             array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['nachname'], NULL, 'nachname'));
             array_push($rechteSpalte, HTML::buildRadio('geschlecht', $radioOptions, FALSE));
-            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', HTML::mysqlToGerman($dbWerte['geburtsdatum']), NULL, 'geburtsdatum'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', HTML::mysqlToGerman($dbWerte['geburtsdatum']), NULL, 'geburtsdatum', NULL, 'Tag:Monat:Jahr'));
             array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options, NULL, 'abteilung'));
             array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', $dbWerte['stundenlohn'], NULL, 'stundenlohn'));
             array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2, NULL, 'vorgesetzter'));
@@ -175,7 +173,7 @@ class MitarbeiterController {
             array_push($rechteSpalte, HTML::buildInput('text', 'vorname', '', NULL, 'vorname'));
             array_push($rechteSpalte, HTML::buildInput('text', 'nachname', '', NULL, 'nachname'));
             array_push($rechteSpalte, HTML::buildRadio('geschlecht', $radioOptions, FALSE));
-            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', '', NULL, 'geburtsdatum'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', '', NULL, 'geburtsdatum', NULL, 'Tag:Monat:Jahr'));
             array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options, NULL, 'abteilung'));
             array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', '', NULL, 'stundenlohn'));
             array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2, NULL, 'vorgesetzter'));

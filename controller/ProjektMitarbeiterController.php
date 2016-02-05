@@ -9,7 +9,7 @@ class ProjektMitarbeiterController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            
+
             case 'showList':
                 $out = ProjektMitarbeiter::getAll();
                 $out = self::transform($out);
@@ -71,17 +71,17 @@ class ProjektMitarbeiterController {
         $returnOut = [];
         $linkeSpalte = [];
         $rechteSpalte = [];
-        
+
         for ($i = 0; $i < count(ProjektMitarbeiter::getNames()); $i++) {
             array_push($linkeSpalte, ProjektMitarbeiter::getNames()[$i]);
         }
-        
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
-        
+
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
@@ -125,7 +125,7 @@ class ProjektMitarbeiterController {
         if ($hatMitarbeiter == FALSE) {
             $options2[0]['selected'] = TRUE;
         }
-     
+
         if ($out !== NULL) {
             array_push($rechteSpalte, HTML::buildDropDown('projekt', '1', $options, NULL, 'projekt'));
             array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2, NULL, 'mitarbeiter'));

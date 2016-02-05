@@ -117,7 +117,7 @@ class Mitarbeiter implements Aenderbar, JsonSerializable {
         $pdo = DbConnect::connect();
         $sql = "INSERT INTO mitarbeiter(vorname,nachname,geschlecht,geburtsdatum,abteilung_id,stundenlohn,vorgesetzter_id) VALUES (:vorname,:nachname,:geschlecht,:geburtsdatum,:abteilung_id,:stundenlohn,:vorgesetzter_id)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([':vorname' => $id->getVorname(), ':nachname' => $id->getNachname(), ':geschlecht' => $id->getGeschlecht(), ':geburtsdatum' => $id->getGeburtsdatum(), ':abteilung_id' => $id->getAbteilung()->getId(), ':stundenlohn' => $id->getStundenlohn(), ':vorgesetzter_id' => $id->getVorgesetzter()]);
+        $stmt->execute([':vorname' => $id->getVorname(), ':nachname' => $id->getNachname(), ':geschlecht' => $id->getGeschlecht(), ':geburtsdatum' => $id->getGeburtsdatum(), ':abteilung_id' => $id->getAbteilung()->getId(), ':stundenlohn' => $id->getStundenlohn(), ':vorgesetzter_id' => $id->getVorgesetzter()->getId()]);
     }
 
     public static function delete($id) {

@@ -9,7 +9,7 @@ class AutoController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            
+
             case 'showList':
                 $out = Auto::getAll();
                 $out = self::transform($out);
@@ -44,7 +44,7 @@ class AutoController {
                 $out = Auto::getAll();
                 $out = self::transform($out);
                 break;
-            
+
             default:
                 break;
         }
@@ -69,11 +69,11 @@ class AutoController {
         $returnOut = [];
         $linkeSpalte = [];
         $rechteSpalte = [];
-        
+
         for ($i = 0; $i < count(Auto::getNames()); $i++) {
             array_push($linkeSpalte, Auto::getNames()[$i]);
         }
-        
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
@@ -83,7 +83,7 @@ class AutoController {
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
-        
+
         // überführe $dbWerte in rechte Spalte
         // hersteller $options ertellen
         $options = [];
@@ -100,7 +100,7 @@ class AutoController {
                 }
             }
         }
-        
+
         if ($out !== NULL) {
             array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options, NULL, 'hersteller'));
             array_push($rechteSpalte, HTML::buildInput('text', 'autoName', $dbWerte['name'], NULL, 'autoName'));
