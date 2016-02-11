@@ -25,7 +25,7 @@ $(document).ready(function () {
                         mitarbeiter: mitarbeiter,
                         von: vonDate,
                         bis: bisDate,
-                        uausid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -54,14 +54,14 @@ $(document).ready(function () {
         }
 // delete
         if (this.className === 'loeschenAusleihe' && this.value === 'loeschen') {
-            var lausid = this.id;
+            var id = this.id;
             $.post("index.php",
                     {
                         ajax: "true",
                         action: "delete",
                         area: "Ausleihe",
                         view: "listeAusleihe",
-                        lausid: lausid
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -80,7 +80,7 @@ $(document).ready(function () {
                         area: "Projekt",
                         view: "listeProjekt",
                         Projekt: projekt,
-                        uprid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -110,7 +110,7 @@ $(document).ready(function () {
                         action: "delete",
                         area: "Projekt",
                         view: "listeProjekt",
-                        lprid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -141,7 +141,7 @@ $(document).ready(function () {
                         abteilung_id: abteilung_id,
                         stundenlohn: stundenlohn,
                         vorgesetzter_id: vorgesetzter_id,
-                        umaid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -176,14 +176,14 @@ $(document).ready(function () {
         }
 // delete
         if (this.className === 'loeschenMitarbeiter' && this.value === 'loeschen') {
-            var lmaid = this.id;
+            var id = this.id;
             $.post("index.php",
                     {
                         ajax: "true",
                         action: "delete",
                         area: "Mitarbeiter",
                         view: "listeMitarbeiter",
-                        lmaid: lmaid
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -202,7 +202,7 @@ $(document).ready(function () {
                         area: "Abteilung",
                         view: "listeAbteilung",
                         Abteilung: abteilung,
-                        uabid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -232,7 +232,7 @@ $(document).ready(function () {
                         action: "delete",
                         area: "Abteilung",
                         view: "listeAbteilung",
-                        labid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -251,7 +251,7 @@ $(document).ready(function () {
                         area: "Hersteller",
                         view: "listeHersteller",
                         Hersteller: hersteller,
-                        uheid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -281,7 +281,7 @@ $(document).ready(function () {
                         action: "delete",
                         area: "Hersteller",
                         view: "listeHersteller",
-                        lheid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -304,7 +304,7 @@ $(document).ready(function () {
                         Auto: auto,
                         hersteller_id: hersteller_id,
                         kennzeichen: kennzeichen,
-                        uauid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -338,7 +338,7 @@ $(document).ready(function () {
                         action: "delete",
                         area: "Auto",
                         view: "listeAuto",
-                        lauid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -363,7 +363,7 @@ $(document).ready(function () {
                         mitarbeiter: mitarbeiter,
                         von: vonDate,
                         bis: bisDate,
-                        upmid: id
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -392,14 +392,14 @@ $(document).ready(function () {
         }
 // delete
         if (this.className === 'loeschenProjektMitarbeiter' && this.value === 'loeschen') {
-            var lpmid = this.id;
+            var id = this.id;
             $.post("index.php",
                     {
                         ajax: "true",
                         action: "delete",
                         area: "ProjektMitarbeiter",
                         view: "listeProjektMitarbeiter",
-                        lpmid: lpmid
+                        id: id
                     },
             function (data, status) {
                 $('#content').html(data);
@@ -459,7 +459,7 @@ $(document).ready(function () {
         var options = [];
         switch (id) {
 
-                // Show
+            // Show
 
             case 'menuMitarbeiterAnzeige' :
                 options = ['showList', 'Mitarbeiter', 'listeMitarbeiter'];
@@ -481,6 +481,9 @@ $(document).ready(function () {
                 break;
             case 'menuProjektMitarbeiterAnzeigen' :
                 options = ['showList', 'ProjektMitarbeiter', 'listeProjektMitarbeiter'];
+                break;
+            case 'menuMitarbeiterAbteilungVorgesetzter':
+                options = ['showList', 'MitarbeiterAbteilungVorgesetzter', 'listeMitarbeiterAbteilungVorgesetzter'];
                 break;
 
                 // Insert
@@ -529,6 +532,21 @@ $(document).ready(function () {
                 break;
             case 'bearbeitenProjektMitarbeiter' :
                 options = ['showUpdate', 'ProjektMitarbeiter', 'formularProjektMitarbeiter'];
+                break;
+
+                // jakubs views
+
+            case 'menuProjektKosten':
+                options = ['showList', 'ProjektKosten', 'listeProjektKosten'];
+                break;
+            case 'menuMitarbeiterZeiteZuProjekt':
+                options = ['showList', 'MitarbeiterZeiteZuProjekt', 'listeMitarbeiterZeiteZuProjekt'];
+                break;
+            case 'menuAbteilungAusleihenListe':
+                options = ['showList', 'AbteilungAusleihenListe', 'listeAbteilungAusleihenListe'];
+                break;
+            case 'menuAusleiherAutoListe':
+                options = ['showList', 'AusleiherAutoListe', 'listeAusleiherAutoListe'];
                 break;
 
                 // Default 
