@@ -139,10 +139,10 @@ class AusleiheController {
         } else {
             array_push($rechteSpalte, HTML::buildDropDown('fahrzeug', '1', $options, NULL, 'fahrzeug'));
             array_push($rechteSpalte, HTML::buildDropDown('mitarbeiter', '1', $options2, NULL, 'mitarbeiter'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', '', NULL, 'vonTag'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', '', NULL, 'vonZeit'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', '', NULL, 'bisTag'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', '', NULL, 'bisZeit'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonTag', '', NULL, 'vonTag', NULL, 'TT:MM:JJJJ'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vonZeit', '', NULL, 'vonZeit', NULL, 'HH:mm'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisTag', '', NULL, 'bisTag', NULL, 'TT:MM:JJJJ'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'bisZeit', '', NULL, 'bisZeit', NULL, 'HH:mm'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertAusleihe', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);

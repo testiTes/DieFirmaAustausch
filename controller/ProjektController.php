@@ -87,7 +87,7 @@ class ProjektController {
             array_push($rechteSpalte, HTML::buildInput('text', 'projekt', $dbWerte['name'], NULL, 'projekt'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateProjekt', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildInput('text', 'projekt', '', NULL, 'projekt'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'projekt', '', NULL, 'projekt', NULL, 'Projekt'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertProjekt', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);

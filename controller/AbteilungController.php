@@ -9,7 +9,7 @@ class AbteilungController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            
+
             case 'showList':
                 $out = Abteilung::getAll();
                 $out = self::transform($out);
@@ -71,13 +71,13 @@ class AbteilungController {
         for ($i = 0; $i < count(Abteilung::getNames()); $i++) {
             array_push($linkeSpalte, Abteilung::getNames()[$i]);
         }
-        
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
-        
+
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
@@ -87,7 +87,7 @@ class AbteilungController {
             array_push($rechteSpalte, HTML::buildInput('text', 'name', $dbWerte['name'], NULL, 'abteilung'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateAbteilung', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildInput('text', 'name', '', NULL, 'abteilung'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'name', '', NULL, 'abteilung', NULL, 'Abteilung'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertAbteilung', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);

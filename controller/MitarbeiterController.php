@@ -164,18 +164,18 @@ class MitarbeiterController {
             array_push($rechteSpalte, HTML::buildInput('text', 'vorname', $dbWerte['vorname'], NULL, 'vorname'));
             array_push($rechteSpalte, HTML::buildInput('text', 'nachname', $dbWerte['nachname'], NULL, 'nachname'));
             array_push($rechteSpalte, HTML::buildRadio('geschlecht', $radioOptions, FALSE));
-            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', HTML::mysqlToGerman($dbWerte['geburtsdatum']), NULL, 'geburtsdatum', NULL, 'Tag:Monat:Jahr'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', HTML::mysqlToGerman($dbWerte['geburtsdatum']), NULL, 'geburtsdatum'));
             array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options, NULL, 'abteilung'));
             array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', $dbWerte['stundenlohn'], NULL, 'stundenlohn'));
             array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2, NULL, 'vorgesetzter'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateMitarbeiter', 'OK'));
         } else {
-            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', '', NULL, 'vorname'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', '', NULL, 'nachname'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'vorname', '', NULL, 'vorname', NULL, 'Vorname'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'nachname', '', NULL, 'nachname', NULL, 'Nachname'));
             array_push($rechteSpalte, HTML::buildRadio('geschlecht', $radioOptions, FALSE));
-            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', '', NULL, 'geburtsdatum', NULL, 'Tag:Monat:Jahr'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'geburtsdatum', '', NULL, 'geburtsdatum', NULL, 'TT:MM:JJJJ'));
             array_push($rechteSpalte, HTML::buildDropDown('abteilung', '1', $options, NULL, 'abteilung'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', '', NULL, 'stundenlohn'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'stundenlohn', '', NULL, 'stundenlohn', NULL, 'Stundenlohn'));
             array_push($rechteSpalte, HTML::buildDropDown('vorgesetzter', '1', $options2, NULL, 'vorgesetzter'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertMitarbeiter', 'OK'));
         }

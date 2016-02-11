@@ -108,8 +108,8 @@ class AutoController {
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateAuto', 'OK'));
         } else {
             array_push($rechteSpalte, HTML::buildDropDown('herstellerName', '1', $options, NULL, 'hersteller'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'autoName', '', NUll, 'autoName'));
-            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', '', NULL, 'kennzeichen'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'autoName', '', NUll, 'autoName', NULL, 'Fahrzeugmodell'));
+            array_push($rechteSpalte, HTML::buildInput('text', 'kennzeichen', '', NULL, 'kennzeichen', NULL, 'Kennzeichen'));
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertAuto', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);

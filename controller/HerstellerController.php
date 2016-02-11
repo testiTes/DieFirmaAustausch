@@ -9,7 +9,7 @@ class HerstellerController {
 
     public static function doAction($action, &$view, $id) {
         switch ($action) {
-            
+
             case 'showList':
                 $out = Hersteller::getAll();
                 $out = self::transform($out);
@@ -71,13 +71,13 @@ class HerstellerController {
         for ($i = 0; $i < count(Hersteller::getNames()); $i++) {
             array_push($linkeSpalte, Hersteller::getNames()[$i]);
         }
-        
+
         if ($out !== NULL) {
             array_push($linkeSpalte, HTML::buildInput('hidden', 'id', $out->getId()));
         } else {
             array_push($linkeSpalte, '');
         }
-        
+
         if ($out !== NULL) {
             $dbWerte = json_decode(json_encode($out), true);
         }
@@ -87,7 +87,7 @@ class HerstellerController {
             $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', $dbWerte['name'], NULL, 'name');
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'updateHersteller', 'OK'));
         } else {
-            $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', '', NULL, 'name');
+            $rechteSpalte[0] = HTML::buildInput('text', 'hersteller', '', NULL, 'name', NULL, 'Hersteller');
             array_push($rechteSpalte, HTML::buildButton('OK', 'ok', 'insertHersteller', 'OK'));
         }
         $returnOut = HTML::buildFormularTable($linkeSpalte, $rechteSpalte);
