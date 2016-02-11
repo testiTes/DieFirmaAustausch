@@ -128,7 +128,6 @@ $(document).ready(function () {
             var abteilung_id = drops['abteilung'].value;
             var stundenlohn = inputs['stundenlohn'].value;
             var vorgesetzter_id = drops['vorgesetzter'].value;
-            alert(vorgesetzter_id);
             $.post("index.php",
                     {
                         ajax: "true",
@@ -460,7 +459,7 @@ $(document).ready(function () {
         var options = [];
         switch (id) {
 
-            // Show
+                // Show
 
             case 'menuMitarbeiterAnzeige' :
                 options = ['showList', 'Mitarbeiter', 'listeMitarbeiter'];
@@ -562,7 +561,7 @@ $(document).ready(function () {
         }
     });
 
-    // datepicker für geburtsdatum und vonTag und bisTag
+    // datepicker für die ids geburtsdatum,vonTag und bisTag
 
     $('#geburtsdatum,#vonTag,#bisTag').datepicker({
         inline: true,
@@ -593,12 +592,6 @@ $(document).ready(function () {
                 $('#vonTag').datepicker("option", "maxDate", selectedDate);
             }
         }
-    });
-
-    // timepicker
-    $('#vonZeit,#bisZeit').timepicker({
-        disableTextInput: false,
-        timeFormat: 'H:i'
     });
 
 });
